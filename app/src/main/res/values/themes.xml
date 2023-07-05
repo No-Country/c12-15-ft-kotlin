@@ -6,4 +6,12 @@
     </style>
 
     <style name="Theme.Movienocountry" parent="Base.Theme.Movienocountry" />
+
+    <style name="style01" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
 </resources>
