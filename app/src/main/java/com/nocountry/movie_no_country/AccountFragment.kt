@@ -7,17 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.nocountry.movie_no_country.databinding.FragmentAccountBinding
-import com.nocountry.movie_no_country.databinding.FragmentLoginBinding
 
+class AccountFragment : Fragment() {
 
-class fragment_login : Fragment() {
-
-    private var _binding : FragmentLoginBinding? = null
+    private var _binding : FragmentAccountBinding? = null
     private val binding get() =  _binding!!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -25,8 +23,14 @@ class fragment_login : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentLoginBinding.inflate(inflater,container,false)
+        _binding = FragmentAccountBinding.inflate(inflater,container,false)
         return binding.root
+        setupNavigation()
     }
 
+    private fun setupNavigation(){
+        binding.buttonLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_account_Fragment_to_fragment_Login)
+        }
+    }
 }
