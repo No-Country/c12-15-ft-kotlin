@@ -24,13 +24,15 @@ class AccountFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentAccountBinding.inflate(inflater,container,false)
-        return binding.root
         setupNavigation()
+        return binding.root
+
     }
 
     private fun setupNavigation(){
         binding.buttonLogin.setOnClickListener {
             findNavController().navigate(R.id.action_account_Fragment_to_fragment_Login)
+            val action = AccountFragmentDirections.actionAccountFragmentToFragmentLogin()
         }
     }
 }
