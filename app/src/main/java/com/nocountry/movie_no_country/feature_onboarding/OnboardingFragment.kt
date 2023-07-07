@@ -1,4 +1,4 @@
-package com.nocountry.movie_no_country
+package com.nocountry.movie_no_country.feature_onboarding
 
 import android.os.Bundle
 import android.view.LayoutInflater
