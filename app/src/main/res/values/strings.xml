@@ -4,4 +4,8 @@
     <string name="signup">CREAR CUENTA</string>
     <string name="email">Correo</string>
     <string name="password">Contraseña</string>
+    <string name="title_menu_home">Home</string>
+    <string name="title_menu_search">Search</string>
+    <string name="title_menu_favorites">Favorites</string>
+    <string name="title_menu_profile">Profile</string>
 </resources>
