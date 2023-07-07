@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">movie-no-country</string>
+    <string name="title_menu_search">Buscar</string>
+    <string name="title_menu_favorites">Favoritos</string>
+    <string name="title_menu_profile">Perfil</string>
+</resources>
