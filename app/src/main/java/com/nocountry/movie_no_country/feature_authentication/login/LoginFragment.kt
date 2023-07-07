@@ -1,4 +1,4 @@
-package com.nocountry.movie_no_country
+package com.nocountry.movie_no_country.feature_authentication.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

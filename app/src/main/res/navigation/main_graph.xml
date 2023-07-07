@@ -6,7 +6,7 @@
     app:startDestination="@id/account_Fragment">
     <fragment
         android:id="@+id/account_Fragment"
-        android:name="com.nocountry.movie_no_country.AccountFragment"
+        android:name="com.nocountry.movie_no_country.feature_authentication.AccountFragment"
         android:label="fragment_account"
         tools:layout="@layout/fragment_account" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_Login"
-        android:name="com.nocountry.movie_no_country.LoginFragment"
+        android:name="com.nocountry.movie_no_country.feature_authentication.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
 </navigation>
