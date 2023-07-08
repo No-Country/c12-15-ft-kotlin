@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/onboardingFragment">
     <fragment
         android:id="@+id/account_Fragment"
         android:name="com.nocountry.movie_no_country.feature_authentication.AccountFragment"
@@ -38,4 +38,9 @@
         android:name="com.nocountry.movie_no_country.feature_search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.nocountry.movie_no_country.feature_onboarding.OnboardingFragment"
+        android:label="fragment_onboarding"
+        tools:layout="@layout/fragment_onboarding" />
 </navigation>

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.nocountry.movie_no_country.AccountFragmentDirections
 import com.nocountry.movie_no_country.R
 import com.nocountry.movie_no_country.databinding.FragmentAccountBinding
 
@@ -34,7 +33,7 @@ class AccountFragment : Fragment() {
     private fun setupNavigation(){
         binding.buttonLogin.setOnClickListener {
             findNavController().navigate(R.id.action_account_Fragment_to_fragment_Login)
-            val action = AccountFragmentDirections.actionAccountFragmentToFragmentLogin()
+
         }
     }
 }
