@@ -18,7 +18,7 @@
         tools:src="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/buttonLogin"
+        android:id="@+id/buttonLogin23"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageviewLogo" />
 
     <Button
-        android:id="@+id/buttonSignup"
+        android:id="@+id/buttonSignup23"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -43,9 +43,9 @@
         android:textSize="18sp"
         android:backgroundTint="#E1D8CD"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
-        app:layout_constraintStart_toStartOf="@+id/buttonLogin"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
+        app:layout_constraintEnd_toEndOf="@+id/buttonLogin23"
+        app:layout_constraintStart_toStartOf="@+id/buttonLogin23"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin23" />
 
     <ImageView
         android:id="@+id/imageViewFacebook"
@@ -55,7 +55,7 @@
         android:layout_marginTop="35dp"
         android:src="@drawable/facebook"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSignup" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSignup23" />
 
     <ImageView
         android:id="@+id/imageViewGoogle"

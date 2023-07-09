@@ -31,7 +31,7 @@ class AccountFragment : Fragment() {
     }
 
     private fun setupNavigation(){
-        binding.buttonLogin.setOnClickListener {
+        binding.buttonLogin23.setOnClickListener {
             findNavController().navigate(R.id.action_account_Fragment_to_fragment_Login)
 
         }
