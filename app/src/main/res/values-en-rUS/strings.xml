@@ -4,4 +4,6 @@
     <string name="title_menu_search">Search</string>
     <string name="title_menu_favorites">Favorites</string>
     <string name="title_menu_profile">Profile</string>
+    <string name="tittle_screen_3">You can rate them too!</string>
+    <string name="title_screen_2">Save the ones you like the most in favorites!</string>
 </resources>
