@@ -1,8 +1,10 @@
 package com.nocountry.movie_no_country
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -31,6 +33,18 @@ class MainActivity : AppCompatActivity() {
 
         navHostFragment.navController.apply {
             binding.bottomNavigation.setupWithNavController(this)
+
+            if (getPrefs()) {
+                navigate(R.id.action_onboardingFragment_to_fragment_Login)
+            } else {
+                navigate(R.id.action_onboardingFragment_self)
+            }
+
         }
     }
+
+    fun showBottomNav(show: Boolean) {
+        binding.bottomNavigation.isVisible = show
+    }
+    private fun getPrefs() = getPreferences(Context.MODE_PRIVATE).getBoolean("onBoardingFinished", false)
 }

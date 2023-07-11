@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.nocountry.movie_no_country.MainActivity
 import com.nocountry.movie_no_country.databinding.FragmentOnboardingBinding
 import com.nocountry.movie_no_country.feature_onboarding.screen.FirstScreen
 import com.nocountry.movie_no_country.feature_onboarding.screen.SecondScreen
@@ -29,6 +30,10 @@ class OnboardingFragment : Fragment() {
         )
         val adapter = ViewPagerAdapter(fragmentList,requireActivity().supportFragmentManager,lifecycle)
         binding?.ViewPager?.adapter = adapter
+
+
+        (activity as MainActivity).showBottomNav(false)
+
         return binding?.root
     }
 
