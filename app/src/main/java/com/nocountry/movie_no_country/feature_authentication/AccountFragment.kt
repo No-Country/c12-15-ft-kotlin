@@ -1,12 +1,10 @@
 package com.nocountry.movie_no_country.feature_authentication
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.nocountry.movie_no_country.R
+import androidx.fragment.app.Fragment
 import com.nocountry.movie_no_country.databinding.FragmentAccountBinding
 
 class AccountFragment : Fragment() {
@@ -31,9 +29,9 @@ class AccountFragment : Fragment() {
     }
 
     private fun setupNavigation(){
-        binding.buttonLogin23.setOnClickListener {
-            findNavController().navigate(R.id.action_account_Fragment_to_fragment_Login)
-
-        }
+//        binding.buttonLogin23.setOnClickListener {
+//            findNavController().navigate(R.id.action_account_Fragment_to_fragment_Login)
+//
+//        }
     }
 }

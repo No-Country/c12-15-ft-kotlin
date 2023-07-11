@@ -5,15 +5,6 @@
     android:id="@+id/main_graph"
     app:startDestination="@id/onboardingFragment">
     <fragment
-        android:id="@+id/account_Fragment"
-        android:name="com.nocountry.movie_no_country.feature_authentication.AccountFragment"
-        android:label="fragment_account"
-        tools:layout="@layout/fragment_account">
-        <action
-            android:id="@+id/action_account_Fragment_to_fragment_Login"
-            app:destination="@id/fragment_Login" />
-    </fragment>
-    <fragment
         android:id="@+id/fragment_Login"
         android:name="com.nocountry.movie_no_country.feature_authentication.login.LoginFragment"
         android:label="fragment_login"
@@ -45,8 +36,12 @@
         tools:layout="@layout/fragment_onboarding" >
         <action
             android:id="@+id/action_onboardingFragment_to_fragment_Login"
-            app:destination="@id/fragment_Login"
-            app:popUpTo="@id/onboardingFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/fragment_Login" />
+        <action
+            android:id="@+id/action_onboardingFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_onboardingFragment_self"
+            app:destination="@id/onboardingFragment" />
     </fragment>
 </navigation>
