@@ -8,8 +8,6 @@
     android:background="#121721"
     tools:context=".feature_authentication.login.LoginFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <ImageView
         android:id="@+id/imageViewLogoLogin"
         android:layout_width="0dp"
@@ -25,27 +23,23 @@
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:boxStrokeColor="@color/white"
-        app:boxStrokeErrorColor="#954E66"
-        app:errorEnabled="true"
-        app:errorTextColor="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/imageViewLogoLogin">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email" />
+            android:hint="@string/email"
+            android:inputType="text|textEmailAddress"
+            android:maxLength="30" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2"
         style="@style/style01"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="16dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
         app:endIconMode="password_toggle"
-        app:boxStrokeColor="@color/white"
-        app:boxStrokeErrorColor="#954E66"
-        app:errorEnabled="true"
-        app:errorTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
@@ -54,7 +48,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:inputType="text|textPassword" />
+            android:inputType="text|textPassword"
+            android:maxLength="25" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
@@ -62,10 +57,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="41dp"
         android:src="@drawable/ic_facebook"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewForgetPass" />
 
     <ImageView
         android:id="@+id/imageView3Google"
@@ -81,14 +76,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="60dp"
         android:backgroundTint="@color/bottom_login"
+        android:padding="12dp"
+        android:paddingVertical="10dp"
         android:text="@string/login"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:cornerRadius="100dp"
-        android:paddingVertical="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2Facebook" />
@@ -104,10 +100,10 @@
         android:id="@+id/textViewForgetPass"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="16dp"
         android:text="@string/forgetpassword"
         android:textColor="@color/bottom_text_signup"
-        android:textSize="15sp"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 

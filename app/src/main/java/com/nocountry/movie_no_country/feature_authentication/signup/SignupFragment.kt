@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.nocountry.movie_no_country.R
 import com.nocountry.movie_no_country.databinding.FragmentSignupBinding
 
 class SignupFragment : Fragment() {
@@ -20,7 +22,9 @@ class SignupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSignupBinding.inflate(inflater, container, false)
-
+        binding?.buttonCreateAccount?.setOnClickListener {
+            findNavController().navigate(R.id.action_signupFragment_to_homeFragment)
+        }
         return binding?.root
     }
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.nocountry.movie_no_country.R
 import com.nocountry.movie_no_country.databinding.FragmentLoginBinding
 
 
@@ -24,8 +25,7 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater,container,false)
         binding?.buttonLogin2?.setOnClickListener {
-        val action = LoginFragmentDirections.actionFragmentLoginToHomeFragment()
-            findNavController().navigate(action)
+            findNavController().navigate(R.id.action_fragment_Login_to_homeFragment)
         }
         return binding?.root
     }

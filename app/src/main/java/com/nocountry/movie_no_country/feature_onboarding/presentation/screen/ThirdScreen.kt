@@ -22,9 +22,16 @@ class ThirdScreen : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentOnboardingThirdScreenBinding.inflate(inflater,container,false)
-        binding?.buttonLogin?.setOnClickListener {
-            findNavController().navigate(R.id.action_onboardingFragment_to_fragment_Login)
-            onBoardingFinished()
+        binding?.apply {
+            buttonScreenLogin.setOnClickListener {
+                findNavController().navigate(R.id.action_onboardingFragment_to_fragment_Login)
+                onBoardingFinished()
+            }
+            buttonScreenSignup.setOnClickListener {
+                findNavController().navigate(R.id.action_onboardingFragment_to_signupFragment)
+                onBoardingFinished()
+            }
+
         }
         return binding?.root
     }

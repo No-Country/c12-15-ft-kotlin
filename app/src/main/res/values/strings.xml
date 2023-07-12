@@ -16,4 +16,9 @@
     <string name="text_button_skip">Omitir</string>
     <string name="text_onboarding_screen_1">Las mejores series y películas en un solo lugar</string>
     <string name="text_button_next">Next</string>
+    <string name="text_button1_home" translatable="false">Peliculas</string>
+    <string name="text_button2_home" translatable="false">Series</string>
+    <string name="text_name_login" translatable="false">Nombre</string>
+    <string name="text_lastname_login" translatable="false">Apellido</string>
+    <string name="text_or_login" translatable="false">O registrarme con:</string>
 </resources>
