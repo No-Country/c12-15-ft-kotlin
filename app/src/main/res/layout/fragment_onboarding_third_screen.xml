@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature_onboarding.screen.ThirdScreen">
+    tools:context=".feature_onboarding.presentation.screen.ThirdScreen">
 
     <ImageView
         android:id="@+id/imageViewScreen3"
@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:background="@color/white"
         android:scaleType="centerCrop"
-        android:src="@drawable/casadepapel"
+        android:src="@drawable/bg_onboarding_screen_3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

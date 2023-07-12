@@ -37,7 +37,7 @@
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/onboardingFragment"
-        android:name="com.nocountry.movie_no_country.feature_onboarding.OnboardingFragment"
+        android:name="com.nocountry.movie_no_country.feature_onboarding.presentation.OnboardingFragment"
         android:label="fragment_onboarding"
         tools:layout="@layout/fragment_onboarding" >
         <action
