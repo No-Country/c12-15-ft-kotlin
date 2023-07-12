@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         navHostFragment.navController.apply {
             binding.bottomNavigation.setupWithNavController(this)
 
+            binding.bottomNavigation.itemIconTintList = null
+
             if (getPrefs()) {
                 navigate(R.id.action_onboardingFragment_to_fragment_Login)
             } else {
