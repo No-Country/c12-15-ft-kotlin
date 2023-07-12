@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature_onboarding.OnboardingFragment">
+    tools:context=".feature_onboarding.presentation.OnboardingFragment">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@drawable/casadepapel" />
+        tools:background="@drawable/bg_onboarding_screen_3" />
 
     <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
         android:id="@+id/dots"

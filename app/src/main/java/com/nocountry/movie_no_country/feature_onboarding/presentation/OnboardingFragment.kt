@@ -1,4 +1,4 @@
-package com.nocountry.movie_no_country.feature_onboarding
+package com.nocountry.movie_no_country.feature_onboarding.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.nocountry.movie_no_country.MainActivity
 import com.nocountry.movie_no_country.databinding.FragmentOnboardingBinding
-import com.nocountry.movie_no_country.feature_onboarding.screen.FirstScreen
-import com.nocountry.movie_no_country.feature_onboarding.screen.SecondScreen
-import com.nocountry.movie_no_country.feature_onboarding.screen.ThirdScreen
+import com.nocountry.movie_no_country.feature_onboarding.presentation.screen.FirstScreen
+import com.nocountry.movie_no_country.feature_onboarding.presentation.screen.SecondScreen
+import com.nocountry.movie_no_country.feature_onboarding.presentation.screen.ThirdScreen
 
 class OnboardingFragment : Fragment() {
     private var binding: FragmentOnboardingBinding? = null

@@ -1,4 +1,4 @@
-package com.nocountry.movie_no_country.feature_onboarding
+package com.nocountry.movie_no_country.feature_onboarding.presentation
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

@@ -1,4 +1,4 @@
-package com.nocountry.movie_no_country.feature_onboarding.screen
+package com.nocountry.movie_no_country.feature_onboarding.presentation.screen
 
 import android.content.Context
 import android.os.Bundle
