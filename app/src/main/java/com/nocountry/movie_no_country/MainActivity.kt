@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
 
             if (getPrefs()) {
                 navigate(R.id.action_onboardingFragment_to_fragment_Login)
-                navigate(R.id.action_onboardingFragment_to_signupFragment)
             } else {
                 navigate(R.id.action_onboardingFragment_self)
             }
