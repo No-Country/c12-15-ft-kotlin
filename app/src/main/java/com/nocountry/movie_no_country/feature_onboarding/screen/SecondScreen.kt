@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.nocountry.movie_no_country.R
-import com.nocountry.movie_no_country.databinding.FragmentFirstScreenBinding
-import com.nocountry.movie_no_country.databinding.FragmentSecondScreenBinding
+import com.nocountry.movie_no_country.databinding.FragmentOnboardingSecondScreenBinding
 
 class SecondScreen : Fragment() {
-    private var binding : FragmentSecondScreenBinding? = null
+    private var binding : FragmentOnboardingSecondScreenBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -22,8 +21,8 @@ class SecondScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentSecondScreenBinding.inflate(inflater,container,false)
-        val viewPager = activity?.findViewById<ViewPager2>(R.id.ViewPager)
+        binding = FragmentOnboardingSecondScreenBinding.inflate(inflater,container,false)
+        val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager)
         binding?.buttonScreen2?.setOnClickListener {
             viewPager?.currentItem = 2
         }

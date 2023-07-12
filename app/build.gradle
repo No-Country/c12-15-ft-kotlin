@@ -50,6 +50,10 @@ dependencies {
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:2.6.0"
     implementation "androidx.navigation:navigation-ui-ktx:2.6.0"
+
     //Splash Screen
     implementation "androidx.core:core-splashscreen:1.0.1"
+
+    // dotsindicator
+    implementation("com.tbuonomo:dotsindicator:5.0")
 }

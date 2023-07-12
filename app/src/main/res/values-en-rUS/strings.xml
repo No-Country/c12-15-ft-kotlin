@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">movie-no-country</string>
+    <string name="title_menu_home">Home</string>
     <string name="title_menu_search">Search</string>
     <string name="title_menu_favorites">Favorites</string>
     <string name="title_menu_profile">Profile</string>
-    <string name="tittle_screen_3">You can rate them too!</string>
-    <string name="title_screen_2">Save the ones you like the most in favorites!</string>
+    <string name="login">login</string>
+    <string name="signup">signup</string>
+    <string name="email">email</string>
+    <string name="forgetpassword">Forgot my password</string>
+    <string name="text_signup">New here? Create an Account</string>
+    <string name="password">Password</string>
+    <string name="text_onboarding_screen_3">You can rate them too!</string>
+    <string name="text_onboarding_screen_2">Save the ones you like the most in favorites!</string>
+    <string name="text_button_skip">Skip</string>
+    <string name="text_onboarding_screen_1">The best series and movies in one place</string>
+    <string name="text_button_next">Next</string>
 </resources>
