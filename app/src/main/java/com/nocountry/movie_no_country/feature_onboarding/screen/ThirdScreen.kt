@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.nocountry.movie_no_country.R
-import com.nocountry.movie_no_country.databinding.FragmentThirdScreenBinding
+import com.nocountry.movie_no_country.databinding.FragmentOnboardingThirdScreenBinding
 
 class ThirdScreen : Fragment() {
-    private var binding : FragmentThirdScreenBinding?= null
+    private var binding : FragmentOnboardingThirdScreenBinding?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -21,7 +21,7 @@ class ThirdScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentThirdScreenBinding.inflate(inflater,container,false)
+        binding = FragmentOnboardingThirdScreenBinding.inflate(inflater,container,false)
         binding?.buttonLogin?.setOnClickListener {
             findNavController().navigate(R.id.action_onboardingFragment_to_fragment_Login)
             onBoardingFinished()

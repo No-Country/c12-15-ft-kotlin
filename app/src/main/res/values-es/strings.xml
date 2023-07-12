@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">movie-no-country</string>
+    <string name="title_menu_home">Inicio</string>
     <string name="title_menu_search">Buscar</string>
     <string name="title_menu_favorites">Favoritos</string>
     <string name="title_menu_profile">Perfil</string>
-    <string name="tittle_screen_3">¡También las podes calificar!</string>
+    <string name="login">Iniciar sesion</string>
+    <string name="signup">Crear cuenta</string>
+    <string name="email">Correo</string>
+    <string name="forgetpassword">Olvide mi contraseña</string>
+    <string name="text_signup">Soy nuevo aqui, Crear cuenta</string>
+    <string name="password">Contraseña</string>
+    <string name="text_onboarding_screen_3">¡También las podes calificar!</string>
+    <string name="text_onboarding_screen_2">¡Guarda las que más te gusten en favoritos!</string>
+    <string name="text_button_skip">Omitir</string>
+    <string name="text_onboarding_screen_1">Las mejores series y películas en un solo lugar</string>
+    <string name="text_button_next">Continuar</string>
 </resources>

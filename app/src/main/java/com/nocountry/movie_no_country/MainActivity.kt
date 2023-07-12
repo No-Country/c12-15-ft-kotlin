@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -34,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         navHostFragment.navController.apply {
             binding.bottomNavigation.setupWithNavController(this)
 
+            binding.bottomNavigation.itemIconTintList = null
+
             if (getPrefs()) {
                 navigate(R.id.action_onboardingFragment_to_fragment_Login)
             } else {
@@ -41,6 +44,8 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
     }
 
     fun showBottomNav(show: Boolean) {

@@ -23,13 +23,19 @@ class OnboardingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentOnboardingBinding.inflate(inflater, container, false)
-        val fragmentList = arrayListOf<Fragment>(
+        val fragmentList = arrayListOf(
             FirstScreen(),
             SecondScreen(),
             ThirdScreen()
         )
         val adapter = ViewPagerAdapter(fragmentList,requireActivity().supportFragmentManager,lifecycle)
-        binding?.ViewPager?.adapter = adapter
+        binding?.viewPager?.adapter = adapter
+
+        binding?.viewPager?.let {
+            binding?.dots?.attachTo(
+                it
+            )
+        }
 
 
         (activity as MainActivity).showBottomNav(false)
