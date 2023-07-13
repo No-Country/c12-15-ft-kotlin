@@ -10,12 +10,13 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.nocountry.movie_no_country.R
 import com.nocountry.movie_no_country.databinding.FragmentLoginBinding
-import kotlinx.coroutines.delay
+import com.nocountry.movie_no_country.feature_authentication.login.domain.User
+import org.koin.android.ext.android.get
 
 class LoginFragment : Fragment() {
-
     private var binding : FragmentLoginBinding? = null
-    lateinit var auth : FirebaseAuth
+    private val auth = get<FirebaseAuth>()
+    private lateinit var user: User
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,31 +28,30 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater,container,false)
         login()
-        signup()
+        //signup()
         return binding?.root
     }
-
     private fun login(){
-        auth = FirebaseAuth.getInstance()
         binding?.buttonLogin2?.setOnClickListener {
-            val email = binding?.etEmail?.text.toString()
-            val password = binding?.etPassword?.text.toString()
+            user = User(
+                binding?.etEmail?.text.toString(),
+                binding?.etPassword?.text.toString())
 
-            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+            auth.signInWithEmailAndPassword(user.email,user.password).addOnCompleteListener {
                 if (it.isSuccessful) {
                     findNavController().navigate(R.id.action_fragment_Login_to_homeFragment)
                 }
             }.addOnFailureListener{
-                Toast.makeText(requireContext(),"Error",Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(),"Usuario no existe",Toast.LENGTH_LONG).show()
             }
         }
     }
     private fun signup(){
-        auth = FirebaseAuth.getInstance()
         binding?.buttonLogin2?.setOnClickListener {
-            val email = binding?.etEmail?.text.toString()
-            val password = binding?.etPassword?.text.toString()
-            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+            user = User(
+                binding?.etEmail?.text.toString(),
+                binding?.etPassword?.text.toString())
+            auth.createUserWithEmailAndPassword(user.email,user.password).addOnCompleteListener {
                 if(it.isSuccessful){
                     findNavController().navigate(R.id.action_fragment_Login_to_homeFragment)
                 }
