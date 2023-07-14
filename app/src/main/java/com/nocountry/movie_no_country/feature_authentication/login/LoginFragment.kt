@@ -28,7 +28,15 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater,container,false)
         login()
-        //signup()
+        binding?.apply {
+            textViewCreateAcc.setOnClickListener {
+                findNavController().navigate(R.id.action_fragment_Login_to_signupFragment)
+            }
+            textViewForgetPass.setOnClickListener {
+                val window = ForgetPassword()
+                window.show(parentFragmentManager,"ventana")
+            }
+        }
         return binding?.root
     }
     private fun login(){
@@ -36,7 +44,6 @@ class LoginFragment : Fragment() {
             user = User(
                 binding?.etEmail?.text.toString(),
                 binding?.etPassword?.text.toString())
-
             auth.signInWithEmailAndPassword(user.email,user.password).addOnCompleteListener {
                 if (it.isSuccessful) {
                     findNavController().navigate(R.id.action_fragment_Login_to_homeFragment)
@@ -46,21 +53,6 @@ class LoginFragment : Fragment() {
             }
         }
     }
-    private fun signup(){
-        binding?.buttonLogin2?.setOnClickListener {
-            user = User(
-                binding?.etEmail?.text.toString(),
-                binding?.etPassword?.text.toString())
-            auth.createUserWithEmailAndPassword(user.email,user.password).addOnCompleteListener {
-                if(it.isSuccessful){
-                    findNavController().navigate(R.id.action_fragment_Login_to_homeFragment)
-                }
-            }.addOnFailureListener {
-                Toast.makeText(requireContext(),"No se pudo Crear el usuario",Toast.LENGTH_LONG).show()
-            }
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         binding = null

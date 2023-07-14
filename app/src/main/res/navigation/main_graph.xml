@@ -14,6 +14,9 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/fragment_Login"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragment_Login_to_signupFragment"
+            app:destination="@id/signupFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"

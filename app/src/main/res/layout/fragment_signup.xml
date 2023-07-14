@@ -27,6 +27,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageViewLogin">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNameSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/text_name_login"
@@ -44,6 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutNameLogin">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etLastnameSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/text_lastname_login"
@@ -57,6 +59,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutApellidoLogin">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmailSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
@@ -73,6 +76,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmailLogin">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPasswordSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
@@ -107,7 +111,6 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_facebook"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 

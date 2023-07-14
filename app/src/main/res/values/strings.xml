@@ -21,4 +21,7 @@
     <string name="text_name_login" translatable="false">Nombre</string>
     <string name="text_lastname_login" translatable="false">Apellido</string>
     <string name="text_or_login" translatable="false">O registrarme con:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_forgetpass_dialog" translatable="false">Ingrese Email para recuperar su contraseña</string>
 </resources>
