@@ -12,20 +12,18 @@ import com.google.firebase.auth.FirebaseAuth
 import com.nocountry.movie_no_country.databinding.FragmentForgetPasswordBinding
 import org.koin.android.ext.android.get
 
-class ForgetPassword(private val onSubmitClickListener: (String) -> Unit) : DialogFragment() {
+class ForgetPassword() : DialogFragment() {
     private var binding : FragmentForgetPasswordBinding? = null
     private val auth = get<FirebaseAuth>()
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = FragmentForgetPasswordBinding.inflate(LayoutInflater.from(context))
-       val myemail = binding?.etEmailDialog?.text.toString()
 
         val builder = AlertDialog.Builder(requireActivity())
         builder.setView(binding?.root)
 
         binding?.apply {
             buttonSend.setOnClickListener {
-                onSubmitClickListener.invoke(binding?.etEmailDialog?.text.toString())
-                sendPasswordReset(myemail)
+                sendPasswordReset(binding?.etEmailDialog?.text.toString())
             }
             buttonClose.setOnClickListener {
                 dismiss()
