@@ -1,4 +1,4 @@
-package com.nocountry.movie_no_country.feature_home
+package com.nocountry.movie_no_country.feature_home.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

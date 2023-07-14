@@ -1,4 +1,4 @@
-package com.nocountry.movie_no_country.feature_home.network
+package com.nocountry.movie_no_country.feature_home.data.network
 
 import com.nocountry.movie_no_country.feature_home.model.Results
 import retrofit2.Response

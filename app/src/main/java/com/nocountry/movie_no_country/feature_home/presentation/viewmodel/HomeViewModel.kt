@@ -1,20 +1,19 @@
-package com.nocountry.movie_no_country.feature_home.viewmodel
+package com.nocountry.movie_no_country.feature_home.presentation.viewmodel
 
 import android.app.Activity
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.nocountry.movie_no_country.feature_home.HomeAdapter
+import androidx.lifecycle.ViewModel
+import com.nocountry.movie_no_country.feature_home.data.service.DataProcess
 import com.nocountry.movie_no_country.feature_home.model.Cartelera
 import com.nocountry.movie_no_country.feature_home.model.Results
-import com.nocountry.movie_no_country.feature_home.service.DataProcess
+import com.nocountry.movie_no_country.feature_home.presentation.HomeAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class HomeViewModel(app:Application): AndroidViewModel(app) {
+class HomeViewModel(): ViewModel() {
     val listCart = MutableLiveData<ArrayList<Cartelera>>()
 
     init {
