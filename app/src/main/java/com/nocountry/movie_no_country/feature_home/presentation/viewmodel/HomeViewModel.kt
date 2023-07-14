@@ -12,8 +12,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import retrofit2.Retrofit
 
-class HomeViewModel(): ViewModel() {
+class HomeViewModel(private val retrofit: Retrofit): ViewModel() {
     val listCart = MutableLiveData<ArrayList<Cartelera>>()
 
     init {
@@ -22,7 +23,7 @@ class HomeViewModel(): ViewModel() {
 
     fun getCarteleras(activity: Activity, adapter: HomeAdapter){
         CoroutineScope(Dispatchers.IO).launch {
-            var res : Response<Results> = DataProcess().getCartelera()
+            var res : Response<Results> = DataProcess(retrofit).getCartelera()
 
             activity.runOnUiThread{
                 if(res.isSuccessful){

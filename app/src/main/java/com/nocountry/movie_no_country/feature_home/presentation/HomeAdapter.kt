@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.nocountry.movie_no_country.core.BASE_URL_IMAGE
 import com.nocountry.movie_no_country.databinding.CarteleraItemBinding
-import com.nocountry.movie_no_country.feature_home.core.Constantes
 import com.nocountry.movie_no_country.feature_home.model.Cartelera
 
 class HomeAdapter(var items: ArrayList<Cartelera>):RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
@@ -16,7 +16,7 @@ class HomeAdapter(var items: ArrayList<Cartelera>):RecyclerView.Adapter<HomeAdap
             binding.apply {
                 detail.poster_path.let { img->
                     Glide.with(root.context)
-                        .load("${Constantes.BASE_URL_IMAGE}${img}")
+                        .load("${BASE_URL_IMAGE}${img}")
                         .into(imageViewHome)
                 }
             }
