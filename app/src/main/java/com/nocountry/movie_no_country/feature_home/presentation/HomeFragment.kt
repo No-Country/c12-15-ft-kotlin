@@ -1,22 +1,21 @@
-package com.nocountry.movie_no_country.feature_home
+package com.nocountry.movie_no_country.feature_home.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nocountry.movie_no_country.MainActivity
-import com.nocountry.movie_no_country.R
 import com.nocountry.movie_no_country.databinding.FragmentHomeBinding
 import com.nocountry.movie_no_country.feature_home.model.Cartelera
-import com.nocountry.movie_no_country.feature_home.viewmodel.HomeViewModel
+import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
     private var binding : FragmentHomeBinding? = null
     lateinit var adapter: HomeAdapter
-    lateinit var viewmodel: HomeViewModel
+    private val viewmodel: HomeViewModel by viewModel()
     var list : ArrayList<Cartelera> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +27,7 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater,container,false)
-        viewmodel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
         recyclerView()
         (activity as MainActivity).showBottomNav(true)
         return binding?.root

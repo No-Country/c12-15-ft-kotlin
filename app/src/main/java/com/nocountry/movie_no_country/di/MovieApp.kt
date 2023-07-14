@@ -2,6 +2,7 @@ package com.nocountry.movie_no_country.di
 
 import android.app.Application
 import com.nocountry.movie_no_country.di.modules.appModule
+import com.nocountry.movie_no_country.di.modules.retrofitModule
 import org.koin.core.context.startKoin
 
 class MovieApp : Application(){
@@ -9,7 +10,10 @@ class MovieApp : Application(){
         super.onCreate()
 
         startKoin{
-            modules(appModule)
+            modules(
+                appModule,
+                retrofitModule
+            )
         }
     }
 }
