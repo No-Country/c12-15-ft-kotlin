@@ -33,8 +33,10 @@ class LoginFragment : Fragment() {
                 findNavController().navigate(R.id.action_fragment_Login_to_signupFragment)
             }
             textViewForgetPass.setOnClickListener {
-                val window = ForgetPassword()
-                window.show(parentFragmentManager,"ventana")
+                //val window = ForgetPassword()
+                //window.show(parentFragmentManager,"ventana")
+                ForgetPassword(onSubmitClickListener = {email->
+                    Toast.makeText(requireContext(),"Envio: $email",Toast.LENGTH_LONG).show()}).show(parentFragmentManager,"ventana")
             }
         }
         return binding?.root
