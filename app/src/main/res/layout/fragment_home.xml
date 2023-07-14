@@ -8,6 +8,7 @@
     tools:context=".feature_home.HomeFragment">
 
     <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/materialButtonToggleGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -21,8 +22,8 @@
             android:layout_height="wrap_content"
             android:maxWidth="250dp"
             android:minWidth="150dp"
-            android:textSize="16sp"
-            android:text="@string/text_button1_home" />
+            android:text="@string/text_button1_home"
+            android:textSize="16sp" />
 
         <Button
             style="?attr/materialButtonOutlinedStyle"
@@ -30,8 +31,8 @@
             android:layout_height="wrap_content"
             android:maxWidth="250dp"
             android:minWidth="150dp"
-            android:textSize="16sp"
-            android:text="@string/text_button2_home" />
+            android:text="@string/text_button2_home"
+            android:textSize="16sp" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -44,4 +45,13 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvHome"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialButtonToggleGroup" />
 </androidx.constraintlayout.widget.ConstraintLayout>
