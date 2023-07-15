@@ -22,7 +22,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String","PRIVATE_KEY", "\"${localProperties.getProperty("PRIVATE_KEY")}\"")
+        buildConfigField("String", "ACCESS_TOKEN", "\"${localProperties.getProperty("ACCESS_TOKEN")}\"")
     }
 
     buildTypes {

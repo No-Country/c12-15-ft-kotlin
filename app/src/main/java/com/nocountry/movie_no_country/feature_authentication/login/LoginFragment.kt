@@ -49,8 +49,7 @@ class LoginFragment : Fragment() {
             textViewForgetPass.setOnClickListener {
                 //val window = ForgetPassword()
                 //window.show(parentFragmentManager,"ventana")
-                ForgetPassword(onSubmitClickListener = {email->
-                    Toast.makeText(requireContext(),"Envio: $email",Toast.LENGTH_LONG).show()}).show(parentFragmentManager,"ventana")
+                ForgetPassword().show(parentFragmentManager, "ventana")
             }
             imageView3Google.setOnClickListener {
                 signInGoogle()
@@ -60,9 +59,7 @@ class LoginFragment : Fragment() {
     }
     private fun login(){
         binding?.buttonLogin2?.setOnClickListener {
-            user = User(
-                "clarkelamothe@gmail.com",
-                "1234qwer")
+            user = User(binding?.etEmail?.text.toString(), binding?.etPassword?.text.toString())
             auth.signInWithEmailAndPassword(user.email,user.password).addOnCompleteListener {
                 if (it.isSuccessful) {
                     findNavController().navigate(R.id.action_fragment_Login_to_homeFragment)
