@@ -59,9 +59,7 @@ class LoginFragment : Fragment() {
     }
     private fun login(){
         binding?.buttonLogin2?.setOnClickListener {
-            user = User(
-                "clarkelamothe@gmail.com",
-                "1234qwer")
+            user = User(binding?.etEmail?.text.toString(), binding?.etPassword?.text.toString())
             auth.signInWithEmailAndPassword(user.email,user.password).addOnCompleteListener {
                 if (it.isSuccessful) {
                     findNavController().navigate(R.id.action_fragment_Login_to_homeFragment)
