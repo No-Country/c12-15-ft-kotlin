@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.nocountry.movie_no_country.core.data.model.NetworkResult
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildPosterUrlUseCase
+import com.nocountry.movie_no_country.feature_home.domain.usecase.GetMovieGenresUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetPopularMoviesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,12 +15,21 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
-    private val buildPosterUrlUseCase: BuildPosterUrlUseCase
+    private val buildPosterUrlUseCase: BuildPosterUrlUseCase,
+    private val movieGenresUseCase: GetMovieGenresUseCase
 ) : ViewModel() {
     private val _listCart = MutableStateFlow<List<Movie>>(emptyList())
     var listCart: StateFlow<List<Movie>> = _listCart
 
-    fun getPopularMovies() {
+    private val _genres = MutableStateFlow<List<String>>(emptyList())
+    var genres: StateFlow<List<String>> = _genres
+
+    init {
+        getPopularMovies()
+        getGenres()
+    }
+
+    private fun getPopularMovies() {
 
         viewModelScope.launch {
             val res = getPopularMoviesUseCase()
@@ -33,6 +43,19 @@ class HomeViewModel(
                             posterUrl = buildPosterUrlUseCase(it.posterPath)
                         )
                     }
+                }
+            }
+        }
+    }
+
+    private fun getGenres() {
+        viewModelScope.launch {
+
+            when (val genres = movieGenresUseCase()) {
+                is NetworkResult.Error -> Log.i("error mov", genres.message ?: "")
+                is NetworkResult.Exception -> Log.i("exc mov", genres.e.message.toString())
+                is NetworkResult.Success -> _genres.value = genres.data.genres.map {
+                    it.name
                 }
             }
         }

@@ -51,7 +51,6 @@ class HomeFragment : Fragment() {
     private fun recyclerView(list: List<Movie>) {
         binding?.apply {
             adapter = HomeAdapter(list)
-            viewModel.getPopularMovies()
             rvHome.layoutManager = GridLayoutManager(context, 2)
             rvHome.adapter = adapter
         }

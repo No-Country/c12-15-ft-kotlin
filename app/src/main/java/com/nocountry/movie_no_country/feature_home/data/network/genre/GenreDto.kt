@@ -1,7 +1,7 @@
 package com.nocountry.movie_no_country.feature_home.data.network.genre
 
 data class GenreDto(
-    val genres: GenreItem
+    val genres: List<GenreItem>
 )
 
 data class GenreItem(
