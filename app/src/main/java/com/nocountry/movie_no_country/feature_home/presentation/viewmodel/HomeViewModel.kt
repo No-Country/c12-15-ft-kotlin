@@ -17,7 +17,7 @@ class HomeViewModel(
     private val _listCart = MutableStateFlow<List<MovieDto>>(emptyList())
     var listCart: StateFlow<List<MovieDto>> = _listCart
 
-    fun getCarteleras() {
+    fun getPopularMovies() {
 
         viewModelScope.launch {
             val res = getPopularMoviesUseCase()

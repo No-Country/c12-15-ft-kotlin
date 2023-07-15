@@ -18,35 +18,40 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
-    private var binding : FragmentHomeBinding? = null
-    lateinit var adapter: HomeAdapter
-    private val viewmodel: HomeViewModel by viewModel()
+    private var binding: FragmentHomeBinding? = null
+    private lateinit var adapter: HomeAdapter
+    private val viewModel: HomeViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        (activity as MainActivity).showBottomNav(true)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        setCollectors()
+
+        return binding?.root
+    }
+
+    private fun setCollectors() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewmodel.listCart.collectLatest {
+                viewModel.listCart.collectLatest {
                     recyclerView(it)
                 }
             }
         }
-        (activity as MainActivity).showBottomNav(true)
-        return binding?.root
     }
 
     private fun recyclerView(list: List<MovieDto>) {
         binding?.apply {
             adapter = HomeAdapter(list)
-            viewmodel.getCarteleras()
+            viewModel.getPopularMovies()
             rvHome.layoutManager = GridLayoutManager(context, 2)
             rvHome.adapter = adapter
         }
