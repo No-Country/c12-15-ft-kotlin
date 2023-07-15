@@ -11,7 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nocountry.movie_no_country.MainActivity
 import com.nocountry.movie_no_country.databinding.FragmentHomeBinding
-import com.nocountry.movie_no_country.feature_home.data.network.MovieDto
+import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -48,7 +48,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun recyclerView(list: List<MovieDto>) {
+    private fun recyclerView(list: List<Movie>) {
         binding?.apply {
             adapter = HomeAdapter(list)
             viewModel.getPopularMovies()

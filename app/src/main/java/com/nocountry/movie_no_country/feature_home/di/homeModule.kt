@@ -4,6 +4,7 @@ import com.nocountry.movie_no_country.feature_home.data.MovieRepositoryImp
 import com.nocountry.movie_no_country.feature_home.data.network.MovieApi
 import com.nocountry.movie_no_country.feature_home.data.network.MovieService
 import com.nocountry.movie_no_country.feature_home.domain.MovieRepository
+import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildPosterUrlUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetPopularMoviesUseCase
 import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -26,4 +27,5 @@ val homeModule = module {
     viewModelOf(::HomeViewModel)
 
     factoryOf(::GetPopularMoviesUseCase)
+    factoryOf(::BuildPosterUrlUseCase)
 }

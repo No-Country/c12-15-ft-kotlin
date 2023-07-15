@@ -4,20 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.nocountry.movie_no_country.core.BASE_URL_IMAGE
 import com.nocountry.movie_no_country.databinding.CarteleraItemBinding
-import com.nocountry.movie_no_country.feature_home.data.network.MovieDto
+import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 
-class HomeAdapter(var items: List<MovieDto>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(var items: List<Movie>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: CarteleraItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(detail: MovieDto) {
+        fun bind(detail: Movie) {
             binding.apply {
-                detail.posterPath.let { img ->
+                detail.posterUrl.let { img ->
                     Glide.with(root.context)
-                        .load("${BASE_URL_IMAGE}${img}")
+                        .load(img)
                         .into(imageViewHome)
                 }
             }
@@ -27,7 +26,7 @@ class HomeAdapter(var items: List<MovieDto>) : RecyclerView.Adapter<HomeAdapter.
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val LayoutInflater = LayoutInflater.from(parent.context)
-        val binding = CarteleraItemBinding.inflate(LayoutInflater,parent,false)
+        val binding = CarteleraItemBinding.inflate(LayoutInflater, parent, false)
         return ViewHolder(binding)
     }
 
