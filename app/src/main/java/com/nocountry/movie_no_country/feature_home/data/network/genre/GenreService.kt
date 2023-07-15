@@ -6,11 +6,11 @@ class GenreService(
     private val genreApi: GenreApi
 ) {
 
-    suspend fun getMovieGenres() = handleApi {
-        genreApi.getMovieGenres()
+    suspend fun getMovieGenres(language: String) = handleApi {
+        genreApi.getMovieGenres(language)
     }
 
-    suspend fun getTvGenres() = handleApi {
-        genreApi.getTvGenres()
+    suspend fun getTvGenres(language: String) = handleApi {
+        genreApi.getTvGenres(language)
     }
 }
