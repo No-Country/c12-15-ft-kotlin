@@ -2,8 +2,8 @@ package com.nocountry.movie_no_country.feature_home.data
 
 import com.nocountry.movie_no_country.core.data.model.ApiResult
 import com.nocountry.movie_no_country.core.data.model.NetworkResult
-import com.nocountry.movie_no_country.feature_home.data.network.MovieDto
-import com.nocountry.movie_no_country.feature_home.data.network.MovieService
+import com.nocountry.movie_no_country.feature_home.data.network.movie.MovieDto
+import com.nocountry.movie_no_country.feature_home.data.network.movie.MovieService
 import com.nocountry.movie_no_country.feature_home.domain.MovieRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

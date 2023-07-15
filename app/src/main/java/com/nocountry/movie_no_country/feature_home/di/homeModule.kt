@@ -1,8 +1,10 @@
 package com.nocountry.movie_no_country.feature_home.di
 
 import com.nocountry.movie_no_country.feature_home.data.MovieRepositoryImp
-import com.nocountry.movie_no_country.feature_home.data.network.MovieApi
-import com.nocountry.movie_no_country.feature_home.data.network.MovieService
+import com.nocountry.movie_no_country.feature_home.data.network.genre.GenreApi
+import com.nocountry.movie_no_country.feature_home.data.network.genre.GenreService
+import com.nocountry.movie_no_country.feature_home.data.network.movie.MovieApi
+import com.nocountry.movie_no_country.feature_home.data.network.movie.MovieService
 import com.nocountry.movie_no_country.feature_home.domain.MovieRepository
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildPosterUrlUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetPopularMoviesUseCase
@@ -18,6 +20,14 @@ val homeModule = module {
         MovieService(
             get<Retrofit>().create(
                 MovieApi::class.java
+            )
+        )
+    }
+
+    factory {
+        GenreService(
+            get<Retrofit>().create(
+                GenreApi::class.java
             )
         )
     }
