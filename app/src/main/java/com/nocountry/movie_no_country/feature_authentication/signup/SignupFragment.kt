@@ -11,12 +11,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.nocountry.movie_no_country.R
 import com.nocountry.movie_no_country.databinding.FragmentSignupBinding
 import com.nocountry.movie_no_country.feature_authentication.login.domain.User
+import com.nocountry.movie_no_country.feature_authentication.signup.domain.NewUser
 import org.koin.android.ext.android.get
 
 class SignupFragment : Fragment() {
     private var binding: FragmentSignupBinding? = null
     private val auth = get<FirebaseAuth>()
-    private lateinit var user: User
+    private lateinit var user: NewUser
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,18 +34,23 @@ class SignupFragment : Fragment() {
     private fun signup(){
         binding?.apply {
             buttonCreateAccount.setOnClickListener {
-                user = User(
+                user = NewUser(
                     etEmailSignup.text.toString(),
-                    etPasswordSignup.text.toString(),)
-                if(user.email.isBlank() || user.password.isBlank()){
-                    Toast.makeText(requireContext(),"Por favor llene los campos", Toast.LENGTH_LONG).show()
-                }
-                auth.createUserWithEmailAndPassword(user.email,user.password).addOnCompleteListener {
-                    if(it.isSuccessful){
-                        findNavController().navigate(R.id.action_signupFragment_to_homeFragment)
+                    etPasswordSignup.text.toString(),
+                    etNameSignup.text.toString(),
+                    etLastnameSignup.text.toString())
+                val verification = listOf(user.email, user.password,user.lastName,user.name).any{it.isBlank()}
+                if(verification){
+                    Toast.makeText(requireContext(),"Por favor llene todos campos", Toast.LENGTH_LONG).show()
+                }else {
+                    auth.createUserWithEmailAndPassword(user.email,user.password).addOnCompleteListener {
+                        if(it.isSuccessful){
+                            findNavController().navigate(R.id.action_signupFragment_to_homeFragment)
+                            Toast.makeText(context,"Bienvenido", Toast.LENGTH_LONG).show()
+                        }
+                    }.addOnFailureListener {
+                        Toast.makeText(requireContext(),"Hubo un error intenta nuevamente",Toast.LENGTH_LONG).show()
                     }
-                }.addOnFailureListener {
-                    Toast.makeText(requireContext(),"Error", Toast.LENGTH_LONG).show()
                 }
             }
         }

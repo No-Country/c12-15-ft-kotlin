@@ -10,11 +10,13 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.nocountry.movie_no_country.databinding.FragmentForgetPasswordBinding
+import com.nocountry.movie_no_country.feature_authentication.login.domain.User
 import org.koin.android.ext.android.get
 
 class ForgetPassword() : DialogFragment() {
     private var binding : FragmentForgetPasswordBinding? = null
     private val auth = get<FirebaseAuth>()
+    private lateinit var user: User
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = FragmentForgetPasswordBinding.inflate(LayoutInflater.from(context))
 
@@ -23,7 +25,12 @@ class ForgetPassword() : DialogFragment() {
 
         binding?.apply {
             buttonSend.setOnClickListener {
-                sendPasswordReset(binding?.etEmailDialog?.text.toString())
+                var email = etEmailDialog.text.toString()
+                if(email.isBlank()){
+                    Toast.makeText(requireContext(),"Ingrese su email a recuperar", Toast.LENGTH_LONG).show()
+                }else{
+                    sendPasswordReset(binding?.etEmailDialog?.text.toString())
+                }
             }
             buttonClose.setOnClickListener {
                 dismiss()
@@ -34,12 +41,11 @@ class ForgetPassword() : DialogFragment() {
         return dialog
     }
     private fun sendPasswordReset(email : String){
-
         auth.sendPasswordResetEmail(email).addOnCompleteListener { task->
             if(task.isSuccessful){
-                Toast.makeText(requireContext(), "Email correcto para cambiar la contraseña", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Correo enviado a: ${email}", Toast.LENGTH_SHORT).show()
             }else{
-                Toast.makeText(requireContext(), "ERROR, La cuenta no existe", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "La cuenta no existe", Toast.LENGTH_SHORT).show()
             }
         }
     }

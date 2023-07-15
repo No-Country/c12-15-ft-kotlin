@@ -49,7 +49,7 @@ class LoginFragment : Fragment() {
             textViewForgetPass.setOnClickListener {
                 //val window = ForgetPassword()
                 //window.show(parentFragmentManager,"ventana")
-                ForgetPassword().show(parentFragmentManager, "ventana")
+                ForgetPassword().show(parentFragmentManager,"ventana")
             }
             imageView3Google.setOnClickListener {
                 signInGoogle()
@@ -58,14 +58,22 @@ class LoginFragment : Fragment() {
         return binding?.root
     }
     private fun login(){
-        binding?.buttonLogin2?.setOnClickListener {
-            user = User(binding?.etEmail?.text.toString(), binding?.etPassword?.text.toString())
-            auth.signInWithEmailAndPassword(user.email,user.password).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    findNavController().navigate(R.id.action_fragment_Login_to_homeFragment)
+        binding?.apply {
+            buttonLogin2.setOnClickListener {
+                user = User(etEmail.text.toString(),etPassword.text.toString())
+                val verification = listOf(user.email,user.password).any{it.isBlank()}
+                if(verification){
+                    Toast.makeText(requireContext(),"Por favor llene todos los campos", Toast.LENGTH_LONG).show()
+                }else{
+                    auth.signInWithEmailAndPassword(user.email,user.password).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            findNavController().navigate(R.id.action_fragment_Login_to_homeFragment)
+                            Toast.makeText(context,"Bienvenido: ${user.email}", Toast.LENGTH_LONG).show()
+                        }
+                    }.addOnFailureListener{
+                        Toast.makeText(requireContext(),"Usuario no Creado",Toast.LENGTH_LONG).show()
+                    }
                 }
-            }.addOnFailureListener{
-                Toast.makeText(requireContext(),"Usuario no existe",Toast.LENGTH_LONG).show()
             }
         }
     }
