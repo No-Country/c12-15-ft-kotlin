@@ -1,5 +1,6 @@
 package com.nocountry.movie_no_country.di.modules
 
+import com.nocountry.movie_no_country.core.AuthInterceptor
 import com.nocountry.movie_no_country.core.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -22,7 +23,8 @@ val retrofitModule = module {
             HttpLoggingInterceptor().setLevel(
                 HttpLoggingInterceptor.Level.BASIC
             )
-        ).build()
+        ).addInterceptor(AuthInterceptor())
+            .build()
     }
 
     single(named(Qualifier.BASE_URL)) {
