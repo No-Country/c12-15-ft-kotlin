@@ -1,5 +1,7 @@
 package com.nocountry.movie_no_country.feature_home.data.network
 
+import com.nocountry.movie_no_country.core.data.model.handleApi
+
 class MovieService(
     private val movieApi: MovieApi
 ) {
@@ -7,5 +9,7 @@ class MovieService(
     suspend fun getMovies(
         language: String,
         region: String
-    ) = movieApi.getPopularMovies(language, region)
+    ) = handleApi {
+        movieApi.getPopularMovies(language, region)
+    }
 }

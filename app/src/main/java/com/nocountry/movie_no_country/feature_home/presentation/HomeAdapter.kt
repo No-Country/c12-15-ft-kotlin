@@ -6,15 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nocountry.movie_no_country.core.BASE_URL_IMAGE
 import com.nocountry.movie_no_country.databinding.CarteleraItemBinding
-import com.nocountry.movie_no_country.feature_home.model.Cartelera
+import com.nocountry.movie_no_country.feature_home.data.network.MovieDto
 
-class HomeAdapter(var items: ArrayList<Cartelera>):RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(var items: ArrayList<MovieDto>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
-    inner class ViewHolder(private val binding: CarteleraItemBinding):RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(private val binding: CarteleraItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(detail: Cartelera){
+        fun bind(detail: MovieDto) {
             binding.apply {
-                detail.poster_path.let { img->
+                detail.posterPath.let { img ->
                     Glide.with(root.context)
                         .load("${BASE_URL_IMAGE}${img}")
                         .into(imageViewHome)

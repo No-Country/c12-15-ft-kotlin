@@ -49,8 +49,7 @@ class LoginFragment : Fragment() {
             textViewForgetPass.setOnClickListener {
                 //val window = ForgetPassword()
                 //window.show(parentFragmentManager,"ventana")
-                ForgetPassword(onSubmitClickListener = {email->
-                    Toast.makeText(requireContext(),"Envio: $email",Toast.LENGTH_LONG).show()}).show(parentFragmentManager,"ventana")
+                ForgetPassword().show(parentFragmentManager, "ventana")
             }
             imageView3Google.setOnClickListener {
                 signInGoogle()

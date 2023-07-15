@@ -1,41 +1,35 @@
 package com.nocountry.movie_no_country.feature_home.presentation.viewmodel
 
-import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nocountry.movie_no_country.feature_home.data.service.DataProcess
-import com.nocountry.movie_no_country.feature_home.model.Cartelera
-import com.nocountry.movie_no_country.feature_home.model.Results
-import com.nocountry.movie_no_country.feature_home.presentation.HomeAdapter
+import com.nocountry.movie_no_country.core.data.model.NetworkResult
+import com.nocountry.movie_no_country.feature_home.data.network.MovieDto
+import com.nocountry.movie_no_country.feature_home.domain.usecase.GetPopularMoviesUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import retrofit2.Response
-import retrofit2.Retrofit
 
-class HomeViewModel(private val retrofit: Retrofit): ViewModel() {
-    val listCart = MutableLiveData<ArrayList<Cartelera>>()
+class HomeViewModel(
+    private val getPopularMoviesUseCase: GetPopularMoviesUseCase
+) : ViewModel() {
+    val listCart = MutableLiveData<ArrayList<MovieDto>>()
 
     init {
-        listCart.value= ArrayList()
+        listCart.value = ArrayList()
     }
 
-    fun getCarteleras(activity: Activity, adapter: HomeAdapter){
+    fun getCarteleras() {
         CoroutineScope(Dispatchers.IO).launch {
-            var res : Response<Results> = DataProcess(retrofit).getCartelera()
+            val res = getPopularMoviesUseCase()
 
-            activity.runOnUiThread{
-                if(res.isSuccessful){
-                    Log.i("result",res.toString())
-                    Log.i("result",res.body().toString())
-                    var obj = res.body()?.cartelera
-                    Log.i("result",obj?.size.toString())
-                    listCart.value?.addAll(obj!!)
-                    Log.i("result",listCart.value.toString())
-                    adapter.notifyDataSetChanged()
+            res.collectLatest {
+                when (it) {
+                    is NetworkResult.Error -> Log.i("error mov", it.message ?: "")
+                    is NetworkResult.Exception -> Log.i("exc mov", it.e.message.toString())
+                    is NetworkResult.Success -> listCart.value?.addAll(listOf(it.data.results))
                 }
-
             }
         }
     }

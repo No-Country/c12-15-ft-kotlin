@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nocountry.movie_no_country.MainActivity
 import com.nocountry.movie_no_country.databinding.FragmentHomeBinding
-import com.nocountry.movie_no_country.feature_home.model.Cartelera
+import com.nocountry.movie_no_country.feature_home.data.network.MovieDto
 import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -16,7 +16,7 @@ class HomeFragment : Fragment() {
     private var binding : FragmentHomeBinding? = null
     lateinit var adapter: HomeAdapter
     private val viewmodel: HomeViewModel by viewModel()
-    var list : ArrayList<Cartelera> = ArrayList()
+    var list: ArrayList<MovieDto> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
         binding?.apply {
             list = viewmodel.listCart.value!!
             adapter = HomeAdapter(list)
-            viewmodel.getCarteleras(requireActivity(),adapter)
+            viewmodel.getCarteleras()
             rvHome.layoutManager = GridLayoutManager(context,2)
             rvHome.adapter = adapter
         }

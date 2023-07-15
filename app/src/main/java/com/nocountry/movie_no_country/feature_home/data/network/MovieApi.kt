@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface MovieApi {
 
-    @GET("/movie/popular")
+    @GET("movie/popular")
     suspend fun getPopularMovies(
         @Query("language") language: String,
         @Query("region") region: String
