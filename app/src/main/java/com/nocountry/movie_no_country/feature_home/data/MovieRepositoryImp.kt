@@ -14,9 +14,12 @@ import kotlinx.coroutines.flow.flowOn
 class MovieRepositoryImp(
     private val movieService: MovieService
 ) : MovieRepository {
-    override suspend fun getPopularMovies(): Flow<NetworkResult<ApiResult<List<MovieDto>>>> {
+    override suspend fun getPopularMovies(
+        language: String,
+        region: String
+    ): Flow<NetworkResult<ApiResult<List<MovieDto>>>> {
         return flowOf(
-            movieService.getMovies("es", "AR")
+            movieService.getMovies(language, region)
         ).catch {
             NetworkResult.Exception<Throwable>(it)
         }.flowOn(Dispatchers.IO)

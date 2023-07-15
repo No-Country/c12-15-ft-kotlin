@@ -7,5 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
 
-    suspend fun getPopularMovies(): Flow<NetworkResult<ApiResult<List<MovieDto>>>>
+    suspend fun getPopularMovies(
+        language: String,
+        region: String
+    ): Flow<NetworkResult<ApiResult<List<MovieDto>>>>
 }
