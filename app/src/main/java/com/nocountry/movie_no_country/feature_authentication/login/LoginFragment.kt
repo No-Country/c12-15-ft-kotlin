@@ -1,7 +1,12 @@
 package com.nocountry.movie_no_country.feature_authentication.login
 
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +41,7 @@ class LoginFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater,container,false)
+        textView()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -111,6 +117,14 @@ class LoginFragment : Fragment() {
                 Toast.makeText(requireContext(),"Usuario no existe",Toast.LENGTH_LONG).show()
             }
         }
+    }
+    private fun textView(){
+        val spannableString = SpannableString("Soy nuevo aqui, Crear cuenta")
+        val redColorSpan = ForegroundColorSpan(Color.WHITE)
+        spannableString.setSpan(redColorSpan, 0, 14, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        val blueColorSpan = ForegroundColorSpan(Color.YELLOW)
+        spannableString.setSpan(blueColorSpan, 15, 28, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        binding?.textViewCreateAcc?.text = spannableString
     }
 
     override fun onDestroy() {

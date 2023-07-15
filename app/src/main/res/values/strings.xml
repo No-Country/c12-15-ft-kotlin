@@ -4,7 +4,7 @@
     <string name="signup">CREAR CUENTA</string>
     <string name="email">Correo</string>
     <string name="forgetpassword">Olvide mi contraseña</string>
-    <string name="text_signup">Soy nuevo aqui, Crear cuenta</string>
+    <string name="text_signup" translatable="false">Soy nuevo aqui, Crear cuenta</string>
     <string name="password">Contraseña</string>
     <string name="text_onboarding_screen_3">¡También las podes calificar!</string>
     <string name="title_menu_home">Home</string>

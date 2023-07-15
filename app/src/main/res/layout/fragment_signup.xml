@@ -85,6 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:fontFamily="@font/inter"
         android:text="@string/text_or_login"
         android:textAlignment="center"
         android:textColor="@color/bottom_text_signup"
