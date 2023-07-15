@@ -8,7 +8,7 @@ import com.nocountry.movie_no_country.core.BASE_URL_IMAGE
 import com.nocountry.movie_no_country.databinding.CarteleraItemBinding
 import com.nocountry.movie_no_country.feature_home.data.network.MovieDto
 
-class HomeAdapter(var items: ArrayList<MovieDto>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(var items: List<MovieDto>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: CarteleraItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.flowOn
 class MovieRepositoryImp(
     private val movieService: MovieService
 ) : MovieRepository {
-    override suspend fun getPopularMovies(): Flow<NetworkResult<ApiResult<MovieDto>>> {
+    override suspend fun getPopularMovies(): Flow<NetworkResult<ApiResult<List<MovieDto>>>> {
         return flow {
             emit(movieService.getMovies("es", "AR"))
         }.catch {
