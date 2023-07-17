@@ -7,7 +7,13 @@ import com.bumptech.glide.Glide
 import com.nocountry.movie_no_country.databinding.CarteleraItemBinding
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 
-class HomeAdapter(var items: List<Movie>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(var items: List<Movie>, private val onClickMovie: OnMovieClicked) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+
+
+    interface OnMovieClicked{
+        fun OnclickMovieListener(detail: Movie, position: Int)
+
+    }
 
     inner class ViewHolder(private val binding: CarteleraItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -35,6 +41,9 @@ class HomeAdapter(var items: List<Movie>) : RecyclerView.Adapter<HomeAdapter.Vie
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val detail = items[position]
         holder.bind(detail)
+        holder.itemView.setOnClickListener {
+            onClickMovie.OnclickMovieListener(items[position], position)
+        }
     }
 
 }

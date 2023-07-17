@@ -27,7 +27,11 @@
         android:id="@+id/homeFragment"
         android:name="com.nocountry.movie_no_country.feature_home.presentation.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_homeDetail"
+            app:destination="@id/homeDetail" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.nocountry.movie_no_country.feature_profile.ProfileFragment"
@@ -69,5 +73,18 @@
         <action
             android:id="@+id/action_signupFragment_to_homeFragment"
             app:destination="@id/homeFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/homeDetail"
+        android:name="com.nocountry.movie_no_country.feature_home.presentation.HomeDetail"
+        android:label="fragment_home__detail"
+        tools:layout="@layout/fragment_home__detail">
+        <argument
+            android:name="detail"
+            app:argType="com.nocountry.movie_no_country.feature_home.domain.model.Movie"
+            />
+        <action
+            android:id="@+id/action_homeDetail_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
