@@ -1,5 +1,9 @@
 package com.nocountry.movie_no_country.feature_home.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Movie(
     val backdropUrl: String = "",
     val genreIds: List<Int> = emptyList(),
@@ -14,4 +18,4 @@ data class Movie(
     val video: Boolean = false,
     val voteAverage: Double = 0.0,
     val voteCount: Int = 0
-)
+): Parcelable

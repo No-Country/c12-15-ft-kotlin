@@ -41,15 +41,15 @@ class SignupFragment : Fragment() {
                     etLastnameSignup.text.toString())
                 val verification = listOf(user.email, user.password,user.lastName,user.name).any{it.isBlank()}
                 if(verification){
-                    Toast.makeText(requireContext(),"Por favor llene todos campos", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(),"Por favor llene todos campos", Toast.LENGTH_SHORT).show()
                 }else {
                     auth.createUserWithEmailAndPassword(user.email,user.password).addOnCompleteListener {
                         if(it.isSuccessful){
                             findNavController().navigate(R.id.action_signupFragment_to_homeFragment)
-                            Toast.makeText(context,"Bienvenido", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context,"Bienvenido", Toast.LENGTH_SHORT).show()
                         }
                     }.addOnFailureListener {
-                        Toast.makeText(requireContext(),"Hubo un error intenta nuevamente",Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(),"Hubo un error intenta nuevamente",Toast.LENGTH_SHORT).show()
                     }
                 }
             }

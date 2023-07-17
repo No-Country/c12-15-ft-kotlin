@@ -16,7 +16,6 @@ import org.koin.android.ext.android.get
 class ForgetPassword() : DialogFragment() {
     private var binding : FragmentForgetPasswordBinding? = null
     private val auth = get<FirebaseAuth>()
-    private lateinit var user: User
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = FragmentForgetPasswordBinding.inflate(LayoutInflater.from(context))
 
@@ -27,7 +26,7 @@ class ForgetPassword() : DialogFragment() {
             buttonSend.setOnClickListener {
                 var email = etEmailDialog.text.toString()
                 if(email.isBlank()){
-                    Toast.makeText(requireContext(),"Ingrese su email a recuperar", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(),"Ingrese su email a recuperar", Toast.LENGTH_SHORT).show()
                 }else{
                     sendPasswordReset(binding?.etEmailDialog?.text.toString())
                 }

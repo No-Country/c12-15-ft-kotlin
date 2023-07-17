@@ -5,6 +5,7 @@
     android:id="@+id/frameLayout7"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="20dp"
     android:background="#121721"
     tools:context=".feature_home.presentation.HomeDetail">
 
@@ -12,28 +13,25 @@
         android:id="@+id/textViewTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto"
         android:text="Top Gun - Maverick"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageViewDetail"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
+        android:adjustViewBounds="true"
         android:layout_marginTop="12dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_foreground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,14 +47,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewDetail" />
 
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:id="@+id/textviewGener"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#00E1D8CD"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Button"
+        android:text="Genre"
         android:textColor="#CFBF34"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewDetail" />
@@ -71,15 +69,7 @@
         android:text="2022 | 8.3"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
-
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        app:layout_constraintStart_toEndOf="@+id/textViewReleaseData"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/textviewGener" />
 
     <TextView
         android:id="@+id/textViewTitle2"
@@ -98,30 +88,63 @@
         android:id="@+id/textViewOverView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto"
-        android:text="Lorem ipsum dolor sit amet consectetur.Adipiscing et ut volutpat faucibus. Donec euismod nisl egestas eget. Aliquam quis duis vulputate nunc lacinia tristique..."
+        android:maxLines="8"
+        android:text="Description"
         android:textColor="@color/white"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textViewTitle2"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitle2" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
+        android:layout_marginStart="94dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="130dp"
+        android:layout_marginEnd="94dp"
         android:backgroundTint="#FFE16A"
-        android:textColor="@color/black"
         android:text="Ver mas"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:cornerRadius="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:icon="@drawable/ic_down"
+        app:iconGravity="end"
+        app:iconSize="20dp"
+        app:iconTint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/textViewOverView"
+        app:layout_constraintStart_toStartOf="@+id/textViewOverView"
         app:layout_constraintTop_toBottomOf="@+id/textViewOverView" />
+
+    <TextView
+        android:id="@+id/textViewRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/textViewReleaseData"
+        app:layout_constraintTop_toTopOf="@+id/textViewReleaseData" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/ic_star"
+        app:layout_constraintStart_toEndOf="@+id/textViewRating"
+        app:layout_constraintTop_toTopOf="@+id/textViewReleaseData" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewTitle"
+        app:navigationIcon="@drawable/ic_back" />
 </androidx.constraintlayout.widget.ConstraintLayout>
