@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.nocountry.movie_no_country.R
 import com.nocountry.movie_no_country.databinding.FragmentSignupBinding
 import com.nocountry.movie_no_country.feature_authentication.login.domain.User
