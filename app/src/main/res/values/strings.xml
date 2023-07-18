@@ -26,4 +26,5 @@
     <string name="title_forgetpass_dialog" translatable="false">Ingrese Email para recuperar su contraseña</string>
     <string name="text_send_dialog" translatable="false">Enviar</string>
     <string name="text_cancel_dialog" translatable="false">Cancelar</string>
+    <string name="signout" translatable="false">Desconectarse</string>
 </resources>
