@@ -7,8 +7,10 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.nocountry.movie_no_country.databinding.ActivityMainBinding
 import kotlinx.coroutines.delay
@@ -51,13 +53,20 @@ class MainActivity : AppCompatActivity() {
                 navigate(R.id.action_onboardingFragment_self)
             }
 
+            //setupActionBarWithNavController(this,appBarConfiguration)
+
         }
 
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        //WindowCompat.setDecorFitsSystemWindows(window, false)
     }
 
     fun showBottomNav(show: Boolean) {
         binding.bottomNavigation.isVisible = show
     }
     private fun getPrefs() = getPreferences(Context.MODE_PRIVATE).getBoolean("onBoardingFinished", false)
+
+    override fun onSupportNavigateUp(): Boolean {
+        return super.onSupportNavigateUp() || findNavController(R.id.fragmentContainerView).navigateUp()
+
+    }
 }

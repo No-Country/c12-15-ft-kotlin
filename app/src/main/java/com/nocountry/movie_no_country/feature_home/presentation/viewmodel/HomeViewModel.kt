@@ -9,6 +9,7 @@ import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildBackDropU
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildPosterUrlUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetMovieGenresUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetPopularMoviesUseCase
+import com.nocountry.movie_no_country.feature_home.domain.usecase.GetYearUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -18,7 +19,8 @@ class HomeViewModel(
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
     private val buildPosterUrlUseCase: BuildPosterUrlUseCase,
     private val movieGenresUseCase: GetMovieGenresUseCase,
-    private val buildBackDropUrlUseCase: BuildBackDropUrlUseCase
+    private val buildBackDropUrlUseCase: BuildBackDropUrlUseCase,
+    private val getYearUseCase: GetYearUseCase
 ) : ViewModel() {
     private val _listCart = MutableStateFlow<List<Movie>>(emptyList())
     var listCart: StateFlow<List<Movie>> = _listCart
@@ -45,11 +47,11 @@ class HomeViewModel(
                             posterUrl = buildPosterUrlUseCase(it.posterPath),
                             title = it.title,
                             overview = it.overview,
-                            releaseDate = it.releaseDate,
+                            releaseDate = getYearUseCase(it.releaseDate),
                             genreIds = it.genreIds,
                             voteAverage = it.voteAverage,
                             originalTitle = it.originalTitle,
-                            backdropUrl = buildBackDropUrlUseCase(it.backdropPath)
+                            backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
                         )
                     }
                 }
