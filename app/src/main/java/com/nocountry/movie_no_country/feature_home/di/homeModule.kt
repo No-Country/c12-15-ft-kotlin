@@ -9,6 +9,7 @@ import com.nocountry.movie_no_country.feature_home.data.network.movie.MovieServi
 import com.nocountry.movie_no_country.feature_home.domain.GenreRepository
 import com.nocountry.movie_no_country.feature_home.domain.MovieRepository
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildBackDropUrlUseCase
+import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildGenresName
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildPosterUrlUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.DiscoverMoviesUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetMovieGenresUseCase
@@ -52,4 +53,5 @@ val homeModule = module {
     factoryOf(::BuildBackDropUrlUseCase)
     factoryOf(::GetYearUseCase)
     factoryOf(::DiscoverMoviesUseCase)
+    factoryOf(::BuildGenresName)
 }

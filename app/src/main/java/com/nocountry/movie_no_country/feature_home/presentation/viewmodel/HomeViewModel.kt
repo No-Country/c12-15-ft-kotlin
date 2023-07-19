@@ -4,8 +4,10 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nocountry.movie_no_country.core.data.model.NetworkResult
+import com.nocountry.movie_no_country.feature_home.data.network.genre.GenreItem
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildBackDropUrlUseCase
+import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildGenresName
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildPosterUrlUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.DiscoverMoviesUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetMovieGenresUseCase
@@ -22,6 +24,7 @@ class HomeViewModel(
     private val buildPosterUrlUseCase: BuildPosterUrlUseCase,
     private val movieGenresUseCase: GetMovieGenresUseCase,
     private val buildBackDropUrlUseCase: BuildBackDropUrlUseCase,
+    private val buildGenresName: BuildGenresName,
     private val getYearUseCase: GetYearUseCase,
     private val discoverMoviesUseCase: DiscoverMoviesUseCase
 ) : ViewModel() {
@@ -29,6 +32,8 @@ class HomeViewModel(
     var data: StateFlow<MutableList<HomeRecyclerItem>> = _data
 
     private val homeData = mutableListOf<HomeRecyclerItem>()
+
+    private val genresCurrent = MutableStateFlow<List<GenreItem>>(emptyList())
 
     private fun setData(
         genreId: Int = 0,
@@ -62,7 +67,7 @@ class HomeViewModel(
                                 title = it.title,
                                 overview = it.overview,
                                 releaseDate = getYearUseCase(it.releaseDate),
-                                genreIds = it.genreIds,
+                                genres = buildGenresName(it.genreIds, genresCurrent.value),
                                 voteAverage = it.voteAverage,
                                 originalTitle = it.originalTitle,
                                 backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
@@ -82,22 +87,23 @@ class HomeViewModel(
                         is NetworkResult.Error -> Log.i("error mov", result.message ?: "")
                         is NetworkResult.Exception -> Log.i("exc mov", result.e.message.toString())
                         is NetworkResult.Success -> {
-
-                            val a = result.data.results.map {
-                                Movie(
-                                    id = it.id,
-                                    posterUrl = buildPosterUrlUseCase(it.posterPath),
-                                    title = it.title,
-                                    overview = it.overview,
-                                    releaseDate = getYearUseCase(it.releaseDate),
-                                    genreIds = it.genreIds,
-                                    voteAverage = it.voteAverage,
-                                    originalTitle = it.originalTitle,
-                                    backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
-                                )
-                            }
-
-                            setData(with_genres, genreName, a)
+                            setData(
+                                with_genres,
+                                genreName,
+                                result.data.results.map {
+                                    Movie(
+                                        id = it.id,
+                                        posterUrl = buildPosterUrlUseCase(it.posterPath),
+                                        title = it.title,
+                                        overview = it.overview,
+                                        releaseDate = getYearUseCase(it.releaseDate),
+                                        genres = buildGenresName(it.genreIds, genresCurrent.value),
+                                        voteAverage = it.voteAverage,
+                                        originalTitle = it.originalTitle,
+                                        backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
+                                    )
+                                }
+                            )
                         }
                     }
                 }
@@ -111,7 +117,8 @@ class HomeViewModel(
                 is NetworkResult.Error -> Log.i("error mov", genres.message ?: "")
                 is NetworkResult.Exception -> Log.i("exc mov", genres.e.message.toString())
                 is NetworkResult.Success -> {
-                    for (genre in genres.data.genres) {
+                    genresCurrent.value = genres.data.genres
+                    for (genre in genresCurrent.value) {
                         discover(genre.id, genre.name)
                     }
                 }
