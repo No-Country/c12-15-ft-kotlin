@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.nocountry.movie_no_country.databinding.CarteleraItemBinding
+import com.nocountry.movie_no_country.databinding.MovieItemBinding
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 
 class HomeAdapter(var items: List<Movie>, private val onClickMovie: OnMovieClicked) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
@@ -15,7 +15,7 @@ class HomeAdapter(var items: List<Movie>, private val onClickMovie: OnMovieClick
 
     }
 
-    inner class ViewHolder(private val binding: CarteleraItemBinding) :
+    inner class ViewHolder(private val binding: MovieItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(detail: Movie) {
@@ -23,7 +23,7 @@ class HomeAdapter(var items: List<Movie>, private val onClickMovie: OnMovieClick
                 detail.posterUrl.let { img ->
                     Glide.with(root.context)
                         .load(img)
-                        .into(imageViewHome)
+                        .into(moviePoster)
                 }
             }
         }
@@ -32,7 +32,7 @@ class HomeAdapter(var items: List<Movie>, private val onClickMovie: OnMovieClick
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val LayoutInflater = LayoutInflater.from(parent.context)
-        val binding = CarteleraItemBinding.inflate(LayoutInflater, parent, false)
+        val binding = MovieItemBinding.inflate(LayoutInflater, parent, false)
         return ViewHolder(binding)
     }
 
