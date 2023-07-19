@@ -11,6 +11,7 @@ import com.nocountry.movie_no_country.feature_home.domain.usecase.DiscoverMovies
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetMovieGenresUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetPopularMoviesUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetYearUseCase
+import com.nocountry.movie_no_country.feature_home.presentation.model.HomeRecyclerItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -24,19 +25,28 @@ class HomeViewModel(
     private val getYearUseCase: GetYearUseCase,
     private val discoverMoviesUseCase: DiscoverMoviesUseCase
 ) : ViewModel() {
-    private val _listCart = MutableStateFlow<List<Movie>>(emptyList())
-    var listCart: StateFlow<List<Movie>> = _listCart
+    private val _data = MutableStateFlow<MutableList<HomeRecyclerItem>>(mutableListOf())
+    var data: StateFlow<MutableList<HomeRecyclerItem>> = _data
 
-    private val _genres = MutableStateFlow<List<String>>(emptyList())
-    var genres: StateFlow<List<String>> = _genres
+    private val homeData = mutableListOf<HomeRecyclerItem>()
 
-    init {
-        getGenres()
-        getPopularMovies()
-        discover(18)
+    private fun setData(
+        genreId: Int = 0,
+        genreName: String = "Top 10 de películas en Argentina",
+        movies: List<Movie>
+    ) {
+        homeData.add(
+            HomeRecyclerItem.Section(genreId, genreName)
+        )
+        homeData.add(
+            HomeRecyclerItem.Movies(
+                movies
+            )
+        )
+        _data.value = homeData
     }
 
-    private fun getPopularMovies() {
+    fun getPopularMovies() {
 
         viewModelScope.launch {
             val res = getPopularMoviesUseCase()
@@ -44,59 +54,66 @@ class HomeViewModel(
                 when (result) {
                     is NetworkResult.Error -> Log.i("error mov", result.message ?: "")
                     is NetworkResult.Exception -> Log.i("exc mov", result.e.message.toString())
-                    is NetworkResult.Success -> _listCart.value = result.data.results.map {
-                        Movie(
-                            id = it.id,
-                            posterUrl = buildPosterUrlUseCase(it.posterPath),
-                            title = it.title,
-                            overview = it.overview,
-                            releaseDate = getYearUseCase(it.releaseDate),
-                            genreIds = it.genreIds,
-                            voteAverage = it.voteAverage,
-                            originalTitle = it.originalTitle,
-                            backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
-                        )
+                    is NetworkResult.Success -> {
+                        setData(movies = result.data.results.map {
+                            Movie(
+                                id = it.id,
+                                posterUrl = buildPosterUrlUseCase(it.posterPath),
+                                title = it.title,
+                                overview = it.overview,
+                                releaseDate = getYearUseCase(it.releaseDate),
+                                genreIds = it.genreIds,
+                                voteAverage = it.voteAverage,
+                                originalTitle = it.originalTitle,
+                                backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
+                            )
+                        })
                     }
                 }
             }
         }
     }
 
-    private fun discover(with_genres: Int) {
-
+    private fun discover(with_genres: Int, genreName: String) {
         viewModelScope.launch {
-            val res = discoverMoviesUseCase(with_genres = with_genres)
-            res.collectLatest { result ->
+            discoverMoviesUseCase(with_genres = with_genres)
+                .collectLatest { result ->
+                    when (result) {
+                        is NetworkResult.Error -> Log.i("error mov", result.message ?: "")
+                        is NetworkResult.Exception -> Log.i("exc mov", result.e.message.toString())
+                        is NetworkResult.Success -> {
 
-                when (result) {
-                    is NetworkResult.Error -> Log.i("error mov", result.message ?: "")
-                    is NetworkResult.Exception -> Log.i("exc mov", result.e.message.toString())
-                    is NetworkResult.Success -> _listCart.value = result.data.results.map {
-                        Movie(
-                            id = it.id,
-                            posterUrl = buildPosterUrlUseCase(it.posterPath),
-                            title = it.title,
-                            overview = it.overview,
-                            releaseDate = getYearUseCase(it.releaseDate),
-                            genreIds = it.genreIds,
-                            voteAverage = it.voteAverage,
-                            originalTitle = it.originalTitle,
-                            backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
-                        )
+                            val a = result.data.results.map {
+                                Movie(
+                                    id = it.id,
+                                    posterUrl = buildPosterUrlUseCase(it.posterPath),
+                                    title = it.title,
+                                    overview = it.overview,
+                                    releaseDate = getYearUseCase(it.releaseDate),
+                                    genreIds = it.genreIds,
+                                    voteAverage = it.voteAverage,
+                                    originalTitle = it.originalTitle,
+                                    backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
+                                )
+                            }
+
+                            setData(with_genres, genreName, a)
+                        }
                     }
                 }
-            }
         }
     }
 
-    private fun getGenres() {
+    fun getGenres() {
         viewModelScope.launch {
 
             when (val genres = movieGenresUseCase()) {
                 is NetworkResult.Error -> Log.i("error mov", genres.message ?: "")
                 is NetworkResult.Exception -> Log.i("exc mov", genres.e.message.toString())
-                is NetworkResult.Success -> _genres.value = genres.data.genres.map {
-                    it.name
+                is NetworkResult.Success -> {
+                    for (genre in genres.data.genres) {
+                        discover(genre.id, genre.name)
+                    }
                 }
             }
         }
