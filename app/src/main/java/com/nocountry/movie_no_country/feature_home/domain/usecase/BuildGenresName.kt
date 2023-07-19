@@ -12,8 +12,8 @@ class BuildGenresName {
             val genre = list.find {
                 it.id == id
             }?.name
-            genresName += genre
+            genresName += "$genre, "
         }
-        return genresName
+        return genresName.removeSuffix(", ")
     }
 }

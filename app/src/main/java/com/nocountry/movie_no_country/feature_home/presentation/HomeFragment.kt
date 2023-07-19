@@ -13,6 +13,7 @@ import com.nocountry.movie_no_country.MainActivity
 import com.nocountry.movie_no_country.databinding.FragmentHomeBinding
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -32,10 +33,6 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        viewModel.getPopularMovies()
-
-        viewModel.getGenres()
-
         setCollectors()
 
         return binding?.root
@@ -44,7 +41,7 @@ class HomeFragment : Fragment() {
     private fun setCollectors() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.data.collect {
+                viewModel.data.collectLatest {
                     adapter = HomeAdapter(it) {}
                     binding?.rvHome?.adapter = adapter
                 }

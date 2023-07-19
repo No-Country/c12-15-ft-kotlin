@@ -28,12 +28,18 @@ class HomeViewModel(
     private val getYearUseCase: GetYearUseCase,
     private val discoverMoviesUseCase: DiscoverMoviesUseCase
 ) : ViewModel() {
+
     private val _data = MutableStateFlow<MutableList<HomeRecyclerItem>>(mutableListOf())
     var data: StateFlow<MutableList<HomeRecyclerItem>> = _data
 
     private val homeData = mutableListOf<HomeRecyclerItem>()
 
     private val genresCurrent = MutableStateFlow<List<GenreItem>>(emptyList())
+
+    init {
+        getGenres()
+        getPopularMovies()
+    }
 
     private fun setData(
         genreId: Int = 0,
@@ -51,7 +57,7 @@ class HomeViewModel(
         _data.value = homeData
     }
 
-    fun getPopularMovies() {
+    private fun getPopularMovies() {
 
         viewModelScope.launch {
             val res = getPopularMoviesUseCase()
@@ -79,38 +85,38 @@ class HomeViewModel(
         }
     }
 
-    private fun discover(with_genres: Int, genreName: String) {
-        viewModelScope.launch {
-            discoverMoviesUseCase(with_genres = with_genres)
-                .collectLatest { result ->
-                    when (result) {
-                        is NetworkResult.Error -> Log.i("error mov", result.message ?: "")
-                        is NetworkResult.Exception -> Log.i("exc mov", result.e.message.toString())
-                        is NetworkResult.Success -> {
-                            setData(
-                                with_genres,
-                                genreName,
-                                result.data.results.map {
-                                    Movie(
-                                        id = it.id,
-                                        posterUrl = buildPosterUrlUseCase(it.posterPath),
-                                        title = it.title,
-                                        overview = it.overview,
-                                        releaseDate = getYearUseCase(it.releaseDate),
-                                        genres = buildGenresName(it.genreIds, genresCurrent.value),
-                                        voteAverage = it.voteAverage,
-                                        originalTitle = it.originalTitle,
-                                        backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
-                                    )
-                                }
-                            )
-                        }
+    private suspend fun discover(with_genres: Int, genreName: String) {
+        discoverMoviesUseCase(with_genres = with_genres)
+            .collectLatest { result ->
+                when (result) {
+                    is NetworkResult.Error -> Log.i("error mov", result.message ?: "")
+                    is NetworkResult.Exception -> Log.i("exc mov", result.e.message.toString())
+                    is NetworkResult.Success -> {
+                        setData(
+                            with_genres,
+                            genreName,
+                            result.data.results.map {
+                                Movie(
+                                    id = it.id,
+                                    posterUrl = buildPosterUrlUseCase(it.posterPath),
+                                    title = it.title,
+                                    overview = it.overview,
+                                    releaseDate = getYearUseCase(it.releaseDate),
+                                    genres = buildGenresName(it.genreIds, genresCurrent.value),
+                                    voteAverage = it.voteAverage,
+                                    originalTitle = it.originalTitle,
+                                    backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
+                                )
+                            }
+                        )
                     }
                 }
-        }
+
+            }
     }
 
-    fun getGenres() {
+
+    private fun getGenres() {
         viewModelScope.launch {
 
             when (val genres = movieGenresUseCase()) {
