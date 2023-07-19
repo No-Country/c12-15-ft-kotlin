@@ -24,4 +24,15 @@ class MovieRepositoryImp(
             NetworkResult.Exception<Throwable>(it)
         }.flowOn(Dispatchers.IO)
     }
+
+    override suspend fun discover(
+        language: String,
+        with_genres: Int
+    ): Flow<NetworkResult<ApiResult<List<MovieDto>>>> {
+        return flowOf(
+            movieService.discover(language, with_genres)
+        ).catch {
+            NetworkResult.Exception<Throwable>(it)
+        }.flowOn(Dispatchers.IO)
+    }
 }

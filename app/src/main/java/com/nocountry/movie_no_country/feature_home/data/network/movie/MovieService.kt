@@ -12,4 +12,11 @@ class MovieService(
     ) = handleApi {
         movieApi.getPopularMovies(language, region)
     }
+
+    suspend fun discover(
+        language: String,
+        with_genres: Int
+    ) = handleApi {
+        movieApi.discoverMovie(language, with_genres)
+    }
 }

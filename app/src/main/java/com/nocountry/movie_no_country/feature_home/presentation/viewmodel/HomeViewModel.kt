@@ -7,6 +7,7 @@ import com.nocountry.movie_no_country.core.data.model.NetworkResult
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildBackDropUrlUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildPosterUrlUseCase
+import com.nocountry.movie_no_country.feature_home.domain.usecase.DiscoverMoviesUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetMovieGenresUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetPopularMoviesUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetYearUseCase
@@ -20,7 +21,8 @@ class HomeViewModel(
     private val buildPosterUrlUseCase: BuildPosterUrlUseCase,
     private val movieGenresUseCase: GetMovieGenresUseCase,
     private val buildBackDropUrlUseCase: BuildBackDropUrlUseCase,
-    private val getYearUseCase: GetYearUseCase
+    private val getYearUseCase: GetYearUseCase,
+    private val discoverMoviesUseCase: DiscoverMoviesUseCase
 ) : ViewModel() {
     private val _listCart = MutableStateFlow<List<Movie>>(emptyList())
     var listCart: StateFlow<List<Movie>> = _listCart
@@ -29,8 +31,9 @@ class HomeViewModel(
     var genres: StateFlow<List<String>> = _genres
 
     init {
-        getPopularMovies()
         getGenres()
+        getPopularMovies()
+        discover(18)
     }
 
     private fun getPopularMovies() {
@@ -38,6 +41,33 @@ class HomeViewModel(
         viewModelScope.launch {
             val res = getPopularMoviesUseCase()
             res.collectLatest { result ->
+                when (result) {
+                    is NetworkResult.Error -> Log.i("error mov", result.message ?: "")
+                    is NetworkResult.Exception -> Log.i("exc mov", result.e.message.toString())
+                    is NetworkResult.Success -> _listCart.value = result.data.results.map {
+                        Movie(
+                            id = it.id,
+                            posterUrl = buildPosterUrlUseCase(it.posterPath),
+                            title = it.title,
+                            overview = it.overview,
+                            releaseDate = getYearUseCase(it.releaseDate),
+                            genreIds = it.genreIds,
+                            voteAverage = it.voteAverage,
+                            originalTitle = it.originalTitle,
+                            backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    private fun discover(with_genres: Int) {
+
+        viewModelScope.launch {
+            val res = discoverMoviesUseCase(with_genres = with_genres)
+            res.collectLatest { result ->
+
                 when (result) {
                     is NetworkResult.Error -> Log.i("error mov", result.message ?: "")
                     is NetworkResult.Exception -> Log.i("exc mov", result.e.message.toString())
