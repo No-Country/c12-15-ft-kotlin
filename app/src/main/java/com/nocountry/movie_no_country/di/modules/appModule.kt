@@ -11,6 +11,6 @@ val appModule = module {
         FirebaseAuth.getInstance()
     }
     single {
-        FirebaseFirestore.getInstance()
+        Firebase.firestore
     }
 }
