@@ -27,6 +27,7 @@ import com.nocountry.movie_no_country.R
 import com.nocountry.movie_no_country.databinding.FragmentLoginBinding
 import com.nocountry.movie_no_country.feature_authentication.login.domain.User
 import org.koin.android.ext.android.get
+import org.koin.core.component.getScopeId
 
 class LoginFragment : Fragment() {
     private var binding : FragmentLoginBinding? = null
