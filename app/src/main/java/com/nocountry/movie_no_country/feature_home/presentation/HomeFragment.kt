@@ -8,10 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import com.nocountry.movie_no_country.MainActivity
 import com.nocountry.movie_no_country.databinding.FragmentHomeBinding
-import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -42,7 +40,7 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.data.collectLatest {
-                    adapter = HomeAdapter(it) {}
+                    adapter = HomeAdapter(it, this@HomeFragment)
                     binding?.rvHome?.adapter = adapter
                 }
             }
@@ -52,10 +50,5 @@ class HomeFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         binding = null
-    }
-
-    private fun onClick(detail: Movie) {
-        val action = HomeFragmentDirections.actionHomeFragmentToHomeDetail(detail)
-        findNavController().navigate(action)
     }
 }

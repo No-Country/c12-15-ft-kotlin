@@ -12,7 +12,7 @@ import com.nocountry.movie_no_country.feature_home.presentation.model.HomeRecycl
 
 class HomeAdapter(
     private val items: List<HomeRecyclerItem>,
-    private val onMovieClicked: (Movie) -> Unit,
+    private val fragment: HomeFragment
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -27,7 +27,8 @@ class HomeAdapter(
                 MovieListBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 ),
-            ) { onMovieClicked }
+                fragment
+            )
 
             else -> throw IllegalAccessException("Type not defined.")
         }
@@ -45,9 +46,11 @@ class HomeAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is HomeViewHolder.HeaderViewHolder -> holder.bind((items[position] as HomeRecyclerItem.Section).title)
-            is HomeViewHolder.MovieListViewHolder -> holder.bindMovies(
-                (items[position] as HomeRecyclerItem.Movies).list
-            )
+            is HomeViewHolder.MovieListViewHolder -> {
+                holder.bindMovies(
+                    (items[position] as HomeRecyclerItem.Movies).list
+                )
+            }
         }
     }
 
@@ -65,14 +68,15 @@ class HomeAdapter(
 
         class MovieListViewHolder(
             private val binding: MovieListBinding,
-            private val movieClicked: (Int) -> Unit,
+            private val fragment: HomeFragment
         ) : HomeViewHolder(binding) {
             fun bindMovies(
-                movies: List<Movie>
+                movies: List<Movie>,
             ) {
                 val adapter = MovieListAdapter(
-                    movies
-                ) { movieClicked(adapterPosition) }
+                    movies,
+                    fragment = fragment
+                )
                 binding.movies.adapter = adapter
             }
         }

@@ -2,6 +2,8 @@ package com.nocountry.movie_no_country.feature_home.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
@@ -13,9 +15,8 @@ import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 
 class MovieListAdapter(
     private val movies: List<Movie>,
-    private val itemClicked: (Movie) -> Unit
+    private val fragment: Fragment
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             R.layout.movie_item -> MovieListViewHolder.MovieViewHolder(
@@ -24,7 +25,7 @@ class MovieListAdapter(
                     parent,
                     false
                 )
-            ) { itemClicked(movies[it]) }
+            ) { itemClicked(fragment, movies[it]) }
 
             else -> {
                 MovieListViewHolder.ViewMoreViewHolder(
@@ -32,10 +33,16 @@ class MovieListAdapter(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
-                    )
+                    ),
+                    fragment
                 )
             }
         }
+    }
+
+    private fun itemClicked(fragment: Fragment, movie: Movie) {
+        val action = HomeFragmentDirections.actionHomeFragmentToHomeDetail(movie)
+        fragment.findNavController().navigate(action)
     }
 
     override fun getItemCount() = if (movies.size > HOME_LIMIT_PER_SECTION)
@@ -61,7 +68,7 @@ class MovieListAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         class MovieViewHolder(
             private val binding: MovieItemBinding,
-            onItemClicked: (Int) -> Unit
+            private val onItemClicked: (Int) -> Unit
         ) : MovieListViewHolder(binding) {
 
             init {
@@ -77,7 +84,14 @@ class MovieListAdapter(
 
         class ViewMoreViewHolder(
             binding: ViewMoreBinding,
-        ) : MovieListViewHolder(binding)
+            fragment: Fragment
+        ) : MovieListViewHolder(binding) {
+            init {
+                itemView.setOnClickListener {
+                    // TODO navigate to category movies
+                }
+            }
+        }
     }
 }
 
