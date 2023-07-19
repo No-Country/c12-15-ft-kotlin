@@ -1,12 +1,14 @@
 package com.nocountry.movie_no_country.feature_authentication.login
 
 import android.app.Activity
+import android.content.ContentValues.TAG
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 import com.nocountry.movie_no_country.R
 import com.nocountry.movie_no_country.databinding.FragmentLoginBinding
 import com.nocountry.movie_no_country.feature_authentication.login.domain.User
@@ -29,6 +32,7 @@ import org.koin.android.ext.android.get
 class LoginFragment : Fragment() {
     private var binding : FragmentLoginBinding? = null
     private val auth = get<FirebaseAuth>()
+    private val db = get<FirebaseFirestore>()
     private lateinit var user: User
     private lateinit var googleSignInClient: GoogleSignInClient
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +78,7 @@ class LoginFragment : Fragment() {
                     auth.signInWithEmailAndPassword(user.email,user.password).addOnCompleteListener {
                         if (it.isSuccessful) {
                             findNavController().navigate(R.id.action_fragment_Login_to_homeFragment)
+                            saveDb(user.email)
                             Toast.makeText(context,"Bienvenido: ${user.email}", Toast.LENGTH_SHORT).show()
                         }
                     }.addOnFailureListener{
@@ -125,6 +130,21 @@ class LoginFragment : Fragment() {
         val blueColorSpan = ForegroundColorSpan(Color.YELLOW)
         spannableString.setSpan(blueColorSpan, 15, 28, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         binding?.textViewCreateAcc?.text = spannableString
+    }
+
+    private fun saveDb(email : String){
+        val user = hashMapOf(
+            "email" to email
+        )
+
+        db.collection("users")
+            .add(user)
+            .addOnSuccessListener { documentReference ->
+                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
     }
 
     override fun onDestroy() {
