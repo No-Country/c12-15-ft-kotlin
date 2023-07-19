@@ -9,7 +9,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.nocountry.movie_no_country.MainActivity
 import com.nocountry.movie_no_country.databinding.FragmentHomeBinding
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
@@ -52,7 +51,6 @@ class HomeFragment : Fragment(), HomeAdapter.OnMovieClicked {
     private fun recyclerView(list: List<Movie>) {
         binding?.apply {
             adapter = HomeAdapter(list,this@HomeFragment)
-            rvHome.layoutManager = GridLayoutManager(context, 2)
             rvHome.adapter = adapter
         }
     }
