@@ -4,5 +4,5 @@ import com.nocountry.movie_no_country.core.BASE_URL_IMAGE
 
 class BuildBackDropUrlUseCase {
 
-    operator fun invoke(backdropPath : String) = "${BASE_URL_IMAGE}${backdropPath}"
+    operator fun invoke(backdropPath: String?) = "${BASE_URL_IMAGE}${backdropPath}"
 }
