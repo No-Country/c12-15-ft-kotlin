@@ -51,8 +51,15 @@
         android:id="@+id/rvHome"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:clickable="true"
+        android:clipToPadding="false"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:paddingTop="40dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialButtonToggleGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/materialButtonToggleGroup"
+        tools:listitem="@layout/header_home_section" />
 </androidx.constraintlayout.widget.ConstraintLayout>

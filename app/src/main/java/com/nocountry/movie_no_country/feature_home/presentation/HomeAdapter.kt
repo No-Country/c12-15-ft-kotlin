@@ -3,47 +3,82 @@ package com.nocountry.movie_no_country.feature_home.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.nocountry.movie_no_country.databinding.CarteleraItemBinding
+import androidx.viewbinding.ViewBinding
+import com.nocountry.movie_no_country.R
+import com.nocountry.movie_no_country.databinding.HeaderHomeSectionBinding
+import com.nocountry.movie_no_country.databinding.MovieListBinding
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
+import com.nocountry.movie_no_country.feature_home.presentation.model.HomeRecyclerItem
 
-class HomeAdapter(var items: List<Movie>, private val onClickMovie: OnMovieClicked) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(
+    private val items: List<HomeRecyclerItem>,
+    private val fragment: HomeFragment
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            R.layout.header_home_section -> HomeViewHolder.HeaderViewHolder(
+                HeaderHomeSectionBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+            )
 
-    interface OnMovieClicked{
-        fun OnclickMovieListener(detail: Movie, position: Int)
+            R.layout.movie_list -> HomeViewHolder.MovieListViewHolder(
+                MovieListBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                ),
+                fragment
+            )
 
-    }
-
-    inner class ViewHolder(private val binding: CarteleraItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(detail: Movie) {
-            binding.apply {
-                detail.posterUrl.let { img ->
-                    Glide.with(root.context)
-                        .load(img)
-                        .into(imageViewHome)
-                }
-            }
+            else -> throw IllegalAccessException("Type not defined.")
         }
-
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val LayoutInflater = LayoutInflater.from(parent.context)
-        val binding = CarteleraItemBinding.inflate(LayoutInflater, parent, false)
-        return ViewHolder(binding)
+    override fun getItemViewType(position: Int): Int {
+        return when (items[position]) {
+            is HomeRecyclerItem.Section -> R.layout.header_home_section
+            is HomeRecyclerItem.Movies -> R.layout.movie_list
+        }
     }
 
     override fun getItemCount() = items.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val detail = items[position]
-        holder.bind(detail)
-        holder.itemView.setOnClickListener {
-            onClickMovie.OnclickMovieListener(items[position], position)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is HomeViewHolder.HeaderViewHolder -> holder.bind((items[position] as HomeRecyclerItem.Section).title)
+            is HomeViewHolder.MovieListViewHolder -> {
+                holder.bindMovies(
+                    (items[position] as HomeRecyclerItem.Movies).list
+                )
+            }
         }
     }
 
+    sealed class HomeViewHolder(
+        binding: ViewBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        class HeaderViewHolder(
+            private val binding: HeaderHomeSectionBinding
+        ) : HomeViewHolder(binding) {
+            fun bind(name: String) {
+                binding.section.text = name
+            }
+        }
+
+        class MovieListViewHolder(
+            private val binding: MovieListBinding,
+            private val fragment: HomeFragment
+        ) : HomeViewHolder(binding) {
+            fun bindMovies(
+                movies: List<Movie>,
+            ) {
+                val adapter = MovieListAdapter(
+                    movies,
+                    fragment = fragment
+                )
+                binding.movies.adapter = adapter
+            }
+        }
+    }
 }

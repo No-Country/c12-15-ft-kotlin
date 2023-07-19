@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
@@ -43,14 +42,16 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        findNavController().navigate(R.id.action_fragment_Login_to_homeFragment)
         // Inflate the layout for this fragment
-        binding = FragmentLoginBinding.inflate(inflater,container,false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
         textView()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
-        googleSignInClient = GoogleSignIn.getClient(requireContext(),gso)
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
         login()
         binding?.apply {
             textViewCreateAcc.setOnClickListener {

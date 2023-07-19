@@ -11,4 +11,9 @@ interface MovieRepository {
         language: String,
         region: String
     ): Flow<NetworkResult<ApiResult<List<MovieDto>>>>
+
+    suspend fun discover(
+        language: String,
+        with_genres: Int
+    ): Flow<NetworkResult<ApiResult<List<MovieDto>>>>
 }

@@ -12,4 +12,10 @@ interface MovieApi {
         @Query("language") language: String,
         @Query("region") region: String
     ): Response<ApiResult<List<MovieDto>>>
+
+    @GET("discover/movie")
+    suspend fun discoverMovie(
+        @Query("language") language: String,
+        @Query("with_genres") region: Int
+    ): Response<ApiResult<List<MovieDto>>>
 }

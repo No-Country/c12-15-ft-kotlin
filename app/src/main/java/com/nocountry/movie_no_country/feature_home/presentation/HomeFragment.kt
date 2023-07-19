@@ -8,17 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.nocountry.movie_no_country.MainActivity
 import com.nocountry.movie_no_country.databinding.FragmentHomeBinding
-import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment : Fragment(), HomeAdapter.OnMovieClicked {
+class HomeFragment : Fragment() {
     private var binding: FragmentHomeBinding? = null
     private lateinit var adapter: HomeAdapter
     private val viewModel: HomeViewModel by viewModel()
@@ -42,28 +39,16 @@ class HomeFragment : Fragment(), HomeAdapter.OnMovieClicked {
     private fun setCollectors() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.listCart.collectLatest {
-                    recyclerView(it)
+                viewModel.data.collectLatest {
+                    adapter = HomeAdapter(it, this@HomeFragment)
+                    binding?.rvHome?.adapter = adapter
                 }
             }
-        }
-    }
-
-    private fun recyclerView(list: List<Movie>) {
-        binding?.apply {
-            adapter = HomeAdapter(list,this@HomeFragment)
-            rvHome.layoutManager = GridLayoutManager(context, 2)
-            rvHome.adapter = adapter
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         binding = null
-    }
-
-    override fun OnclickMovieListener(detail: Movie, position: Int) {
-        val action = HomeFragmentDirections.actionHomeFragmentToHomeDetail(detail)
-        findNavController().navigate(action)
     }
 }

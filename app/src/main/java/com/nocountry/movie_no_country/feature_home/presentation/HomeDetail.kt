@@ -1,11 +1,10 @@
 package com.nocountry.movie_no_country.feature_home.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.nocountry.movie_no_country.MainActivity
@@ -42,7 +41,7 @@ class HomeDetail : Fragment() {
             textViewOverView.text = detail.overview
             textViewReleaseData.text = detail.releaseDate
             textViewTitle2.text = detail.originalTitle
-            textviewGener.text = detail.genreIds.toString()
+            textviewGener.text = detail.genres
             textViewRating.text = detail.voteAverage.toString()
             detail.backdropUrl.let { img ->
                 Glide.with(root.context)
