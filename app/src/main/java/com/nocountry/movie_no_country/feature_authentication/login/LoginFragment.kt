@@ -43,7 +43,6 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        findNavController().navigate(R.id.action_fragment_Login_to_homeFragment)
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         textView()
