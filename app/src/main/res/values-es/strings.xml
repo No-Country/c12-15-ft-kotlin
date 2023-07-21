@@ -15,4 +15,6 @@
     <string name="text_button_skip">Omitir</string>
     <string name="text_onboarding_screen_1">Las mejores series y películas en un solo lugar</string>
     <string name="text_button_next">Continuar</string>
+    <string name="header_details_cast_section">Reparto</string>
+    <string name="header_details_duration_section">Duración</string>
 </resources>

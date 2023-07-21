@@ -5,7 +5,7 @@
     <string name="title_menu_search">Search</string>
     <string name="title_menu_favorites">Favorites</string>
     <string name="title_menu_profile">Profile</string>
-    <string name="login">login</string>
+    <string name="login">Login</string>
     <string name="signup">signup</string>
     <string name="email">email</string>
     <string name="forgetpassword">Forgot my password</string>
@@ -15,4 +15,6 @@
     <string name="text_button_skip">Skip</string>
     <string name="text_onboarding_screen_1">The best series and movies in one place</string>
     <string name="text_button_next">Next</string>
+    <string name="header_details_cast_section">Cast</string>
+    <string name="header_details_duration_section">Duration</string>
 </resources>
