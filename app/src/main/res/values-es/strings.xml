@@ -9,12 +9,22 @@
     <string name="signup">Crear cuenta</string>
     <string name="email">Correo</string>
     <string name="forgetpassword">Olvide mi contraseña</string>
+    <string name="text_signup">Soy nuevo aquí, Crear cuenta</string>
     <string name="password">Contraseña</string>
     <string name="text_onboarding_screen_3">¡También las podes calificar!</string>
     <string name="text_onboarding_screen_2">¡Guarda las que más te gusten en favoritos!</string>
     <string name="text_button_skip">Omitir</string>
     <string name="text_onboarding_screen_1">Las mejores series y películas en un solo lugar</string>
     <string name="text_button_next">Continuar</string>
+    <string name="text_button1_home">Peliculas</string>
+    <string name="text_button2_home">Series</string>
+    <string name="text_name_login">Nombre</string>
+    <string name="text_lastname_login">Apellido</string>
+    <string name="text_or_login">O registrarme con:</string>
+    <string name="title_forgetpass_dialog">Ingrese Email para recuperar su contraseña</string>
+    <string name="text_send_dialog">Enviar</string>
+    <string name="text_cancel_dialog">Cancelar</string>
+    <string name="signout">Desconectarse</string>
     <string name="header_details_cast_section">Reparto</string>
     <string name="header_details_duration_section">Duración</string>
 </resources>
