@@ -8,13 +8,41 @@
     android:background="#121721"
     tools:context=".feature_home.presentation.HomeDetail">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#121721"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:textAlignment="center"
+            app:navigationIcon="@drawable/ic_back"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/TitleToolbar"
+            app:titleTextColor="@color/white"
+            tools:title="Top Gun - Maverick" />
+    </com.google.android.material.appbar.AppBarLayout>
+
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imageViewDetail"
@@ -25,7 +53,7 @@
                 android:src="@drawable/ic_launcher_foreground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageViewFavorites"
@@ -38,16 +66,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageViewDetail" />
 
             <TextView
+
                 android:id="@+id/textviewGener"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="#00E1D8CD"
-                android:text="Genre"
                 android:textColor="#CFBF34"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewDetail" />
+                app:layout_constraintTop_toBottomOf="@+id/imageViewDetail"
+                tools:text="Genre" />
 
             <TextView
                 android:id="@+id/textViewReleaseData"
@@ -55,11 +84,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="2022 | 8.3"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textviewGener" />
+                app:layout_constraintTop_toBottomOf="@+id/textviewGener"
+                tools:text="2022 | 8.3" />
 
             <TextView
                 android:id="@+id/textViewTitle2"
@@ -67,12 +96,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:ellipsize="end"
                 android:fontFamily="@font/roboto"
-                android:text="Top Gun - Maverick"
+                android:lines="1"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewReleaseData" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewReleaseData"
+                tools:text="Top Gun - Maverick" />
 
             <TextView
                 android:id="@+id/textViewOverView"
@@ -81,43 +113,23 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto"
-                android:text="Description"
                 android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textViewTitle2"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle2" />
-
-            <!--    <com.google.android.material.button.MaterialButton-->
-            <!--        android:id="@+id/button2"-->
-            <!--        android:layout_width="0dp"-->
-            <!--        android:layout_height="wrap_content"-->
-            <!--        android:layout_marginStart="94dp"-->
-            <!--        android:layout_marginTop="16dp"-->
-            <!--        android:layout_marginEnd="94dp"-->
-            <!--        android:backgroundTint="#FFE16A"-->
-            <!--        android:text="Ver mas"-->
-            <!--        android:textColor="@color/black"-->
-            <!--        android:textSize="18sp"-->
-            <!--        app:cornerRadius="100dp"-->
-            <!--        app:icon="@drawable/ic_down"-->
-            <!--        app:iconGravity="end"-->
-            <!--        app:iconSize="20dp"-->
-            <!--        app:iconTint="@color/black"-->
-            <!--        app:layout_constraintEnd_toEndOf="@+id/textViewOverView"-->
-            <!--        app:layout_constraintStart_toStartOf="@+id/textViewOverView"-->
-            <!--        app:layout_constraintTop_toBottomOf="@+id/textViewOverView" />-->
+                app:layout_constraintTop_toBottomOf="@+id/textViewTitle2"
+                tools:text="Description" />
 
             <TextView
                 android:id="@+id/textViewRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="TextView"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/textViewReleaseData"
-                app:layout_constraintTop_toTopOf="@+id/textViewReleaseData" />
+                app:layout_constraintTop_toTopOf="@+id/textViewReleaseData"
+                tools:text="TextView" />
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -128,35 +140,13 @@
                 app:layout_constraintStart_toEndOf="@+id/textViewRating"
                 app:layout_constraintTop_toTopOf="@+id/textViewReleaseData" />
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appBarLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="#121721"
-                android:elevation="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="4dp"
-                    android:textAlignment="center"
-                    app:navigationIcon="@drawable/ic_back"
-                    app:title="hola"
-                    app:titleCentered="true"
-                    app:titleTextAppearance="@style/TitleToolbar"
-                    app:titleTextColor="@color/white" />
-            </com.google.android.material.appbar.AppBarLayout>
-
-            <ImageView
+            <View
                 android:id="@+id/imageView8"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/line_16"
+                android:layout_height="0.2dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="22dp"
+                android:background="?attr/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewOverView" />
@@ -168,7 +158,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto"
-                android:text="Reparto"
+                android:text="@string/header_details_cast_section"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -182,12 +172,13 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto"
-                android:text="Name actor"
-                android:textColor="@color/white"
+                android:textColor="@color/white_secondary"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewReparto" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewReparto"
+                tools:text="Name actor" />
+
             <TextView
                 android:id="@+id/textViewDuration"
                 android:layout_width="0dp"
@@ -195,35 +186,38 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto"
-                android:text="Duracion"
+                android:text="@string/header_details_duration_section"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView9" />
-            <ImageView
+                app:layout_constraintTop_toBottomOf="@+id/imageView9"
+                tools:text="Duracion" />
+
+            <View
                 android:id="@+id/imageView9"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0.2dp"
+                android:layout_marginHorizontal="8dp"
                 android:layout_marginTop="16dp"
-                android:src="@drawable/line_16"
+                android:background="?attr/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewNameReparto" />
+
             <TextView
                 android:id="@+id/textViewDurationTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto"
-                android:text="TextView"
-                android:textColor="@color/white"
+                android:textColor="@color/white_secondary"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDuration" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewDuration"
+                tools:text="TextView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

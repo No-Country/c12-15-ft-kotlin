@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
-            android:inputType="text|textEmailAddress"
+            android:inputType="textEmailAddress"
             android:maxLength="30" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,6 +81,7 @@
         android:backgroundTint="@color/bottom_login"
         android:padding="12dp"
         android:paddingVertical="10dp"
+        android:textAllCaps="true"
         android:text="@string/login"
         android:textColor="@color/black"
         android:textSize="18sp"
