@@ -1,17 +1,22 @@
 package com.nocountry.movie_no_country.feature_home.di
 
+import com.nocountry.movie_no_country.feature_home.data.CastRepositoryImp
 import com.nocountry.movie_no_country.feature_home.data.GenreRepositoryImp
 import com.nocountry.movie_no_country.feature_home.data.MovieRepositoryImp
+import com.nocountry.movie_no_country.feature_home.data.network.cast.CastApi
+import com.nocountry.movie_no_country.feature_home.data.network.cast.CastService
 import com.nocountry.movie_no_country.feature_home.data.network.genre.GenreApi
 import com.nocountry.movie_no_country.feature_home.data.network.genre.GenreService
 import com.nocountry.movie_no_country.feature_home.data.network.movie.MovieApi
 import com.nocountry.movie_no_country.feature_home.data.network.movie.MovieService
+import com.nocountry.movie_no_country.feature_home.domain.CastRepository
 import com.nocountry.movie_no_country.feature_home.domain.GenreRepository
 import com.nocountry.movie_no_country.feature_home.domain.MovieRepository
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildBackDropUrlUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildGenresName
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildPosterUrlUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.DiscoverMoviesUseCase
+import com.nocountry.movie_no_country.feature_home.domain.usecase.GetCastUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetMovieGenresUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetPopularMoviesUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetTvGenresUseCase
@@ -40,9 +45,18 @@ val homeModule = module {
         )
     }
 
+    factory {
+        CastService(
+            get<Retrofit>().create(
+                CastApi::class.java
+            )
+        )
+    }
+
     factoryOf(::MovieRepositoryImp) { bind<MovieRepository>() }
 
     factoryOf(::GenreRepositoryImp) { bind<GenreRepository>() }
+    factoryOf(::CastRepositoryImp) { bind<CastRepository>() }
 
     viewModelOf(::HomeViewModel)
 
@@ -54,4 +68,5 @@ val homeModule = module {
     factoryOf(::GetYearUseCase)
     factoryOf(::DiscoverMoviesUseCase)
     factoryOf(::BuildGenresName)
+    factoryOf(::GetCastUseCase)
 }
