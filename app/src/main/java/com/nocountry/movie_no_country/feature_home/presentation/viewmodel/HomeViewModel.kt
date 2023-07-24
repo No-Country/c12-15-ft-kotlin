@@ -3,8 +3,11 @@ package com.nocountry.movie_no_country.feature_home.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.RoomDatabase
 import com.nocountry.movie_no_country.core.data.model.NetworkResult
 import com.nocountry.movie_no_country.feature_home.data.network.genre.GenreItem
+import com.nocountry.movie_no_country.feature_home.db.DataBaseFactory
+import com.nocountry.movie_no_country.feature_home.db.FavoriteMoviesDAO
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildBackDropUrlUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildGenresName
@@ -14,10 +17,13 @@ import com.nocountry.movie_no_country.feature_home.domain.usecase.GetMovieGenres
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetPopularMoviesUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetYearUseCase
 import com.nocountry.movie_no_country.feature_home.presentation.model.HomeRecyclerItem
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 class HomeViewModel(
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
@@ -26,7 +32,8 @@ class HomeViewModel(
     private val buildBackDropUrlUseCase: BuildBackDropUrlUseCase,
     private val buildGenresName: BuildGenresName,
     private val getYearUseCase: GetYearUseCase,
-    private val discoverMoviesUseCase: DiscoverMoviesUseCase
+    private val discoverMoviesUseCase: DiscoverMoviesUseCase,
+    private val dao: FavoriteMoviesDAO
 ) : ViewModel() {
 
     private val _data = MutableStateFlow<MutableList<HomeRecyclerItem>>(mutableListOf())
@@ -39,6 +46,7 @@ class HomeViewModel(
     init {
         getGenres()
         getPopularMovies()
+
     }
 
     private fun setData(
@@ -77,6 +85,8 @@ class HomeViewModel(
                                 voteAverage = it.voteAverage,
                                 originalTitle = it.originalTitle,
                                 backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
+                                originalLanguage = it.originalLanguage,
+                                popularity = it.popularity
                             )
                         })
                     }
@@ -86,6 +96,7 @@ class HomeViewModel(
     }
 
     private suspend fun discover(with_genres: Int, genreName: String) {
+        dao.allFavoriteMovies()
         discoverMoviesUseCase(with_genres = with_genres)
             .collectLatest { result ->
                 when (result) {
@@ -106,6 +117,8 @@ class HomeViewModel(
                                     voteAverage = it.voteAverage,
                                     originalTitle = it.originalTitle,
                                     backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
+                                    originalLanguage = it.originalLanguage,
+                                    popularity = it.popularity
                                 )
                             }
                         )
@@ -117,7 +130,7 @@ class HomeViewModel(
 
 
     private fun getGenres() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
 
             when (val genres = movieGenresUseCase()) {
                 is NetworkResult.Error -> Log.i("error mov", genres.message ?: "")
@@ -125,10 +138,27 @@ class HomeViewModel(
                 is NetworkResult.Success -> {
                     genresCurrent.value = genres.data.genres
                     for (genre in genresCurrent.value) {
-                        discover(genre.id, genre.name)
+                        withContext(Dispatchers.IO){
+                             runBlocking{
+                                discover(genre.id, genre.name)
+                            }
+                        }
                     }
                 }
             }
         }
     }
+
+//    fun insertMovie(movie: Movie){
+//        viewModelScope.launch {
+//            movieDatabase.movieDoa().updateMovie(movie)
+//
+//        }
+//    }
+//
+//    fun deleteMovie(movie:Movie){
+//        viewModelScope.launch {
+//            movieDatabase.movieDoa().deleteMovie(movie)
+//        }
+//    }
 }

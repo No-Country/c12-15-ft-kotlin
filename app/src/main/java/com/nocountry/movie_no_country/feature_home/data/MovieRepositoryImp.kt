@@ -4,7 +4,10 @@ import com.nocountry.movie_no_country.core.data.model.ApiResult
 import com.nocountry.movie_no_country.core.data.model.NetworkResult
 import com.nocountry.movie_no_country.feature_home.data.network.movie.MovieDto
 import com.nocountry.movie_no_country.feature_home.data.network.movie.MovieService
+import com.nocountry.movie_no_country.feature_home.db.FavoriteMoviesDAO
 import com.nocountry.movie_no_country.feature_home.domain.MovieRepository
+import com.nocountry.movie_no_country.feature_home.domain.model.DataOrException
+import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -12,7 +15,8 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 
 class MovieRepositoryImp(
-    private val movieService: MovieService
+    private val movieService: MovieService,
+    private val favoriteMoviesDAO: FavoriteMoviesDAO,
 ) : MovieRepository {
     override suspend fun getPopularMovies(
         language: String,
@@ -35,4 +39,5 @@ class MovieRepositoryImp(
             NetworkResult.Exception<Throwable>(it)
         }.flowOn(Dispatchers.IO)
     }
+
 }
