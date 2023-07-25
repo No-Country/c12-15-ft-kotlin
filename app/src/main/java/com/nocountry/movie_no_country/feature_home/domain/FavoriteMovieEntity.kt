@@ -8,7 +8,7 @@ data class FavoriteMovieEntity(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
 //    val votesAverage: Float,
-//    val title: String,
+    val title: String,
 //    val posterImageUrl: String?,
 //    val backdropImageUrl: String?,
 //    val overview: String,

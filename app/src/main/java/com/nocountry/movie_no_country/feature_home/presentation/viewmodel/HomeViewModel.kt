@@ -3,10 +3,8 @@ package com.nocountry.movie_no_country.feature_home.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.RoomDatabase
 import com.nocountry.movie_no_country.core.data.model.NetworkResult
 import com.nocountry.movie_no_country.feature_home.data.network.genre.GenreItem
-import com.nocountry.movie_no_country.feature_home.db.DataBaseFactory
 import com.nocountry.movie_no_country.feature_home.db.FavoriteMoviesDAO
 import com.nocountry.movie_no_country.feature_home.domain.FavoriteMovieEntity
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
@@ -133,13 +131,13 @@ class HomeViewModel(
         viewModelScope.launch(Dispatchers.IO) {
 
             when (val genres = movieGenresUseCase()) {
-                is NetworkResult.Error -> Log.i("error mov", genres.message ?: "")
-                is NetworkResult.Exception -> Log.i("exc mov", genres.e.message.toString())
+                is NetworkResult.Error<*> -> Log.i("error mov", genres.message ?: "")
+                is NetworkResult.Exception<*> -> Log.i("exc mov", genres.e.message.toString())
                 is NetworkResult.Success -> {
                     genresCurrent.value = genres.data.genres
                     for (genre in genresCurrent.value) {
-                        withContext(Dispatchers.IO){
-                             runBlocking{
+                        withContext(Dispatchers.IO) {
+                            runBlocking {
                                 discover(genre.id, genre.name)
                             }
                         }
@@ -150,21 +148,18 @@ class HomeViewModel(
     }
 
     suspend fun saveToAddToFavotire(movie: Movie) {
-        dao.saveFavorite(FavoriteMovieEntity(
-            id = movie.id
-        ))
+        dao.saveFavorite(
+            FavoriteMovieEntity(
+                id = movie.id,
+                title = movie.title
+            )
+        )
     }
 
-//    fun insertMovie(movie: Movie){
-//        viewModelScope.launch {
-//            movieDatabase.movieDoa().updateMovie(movie)
-//
-//        }
-//    }
-//
-//    fun deleteMovie(movie:Movie){
-//        viewModelScope.launch {
-//            movieDatabase.movieDoa().deleteMovie(movie)
-//        }
-//    }
+    suspend fun isFavorites(id: Int) = dao.isThereAMovie(id)
+    suspend fun deleteFavorite(id: Int) {
+        dao.removeFavorite(id)
+    }
+
+
 }

@@ -26,6 +26,8 @@ class HomeDetail : Fragment() {
     private val args: HomeDetailArgs by navArgs()
     private val db = get<FirebaseFirestore>()
     private val viewModel: HomeViewModel by viewModel()
+
+    private var favoriteClicked: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -40,7 +42,10 @@ class HomeDetail : Fragment() {
         //movieSave = args.detail
         //onClickFavorite()
         //navigationToHome()
+        isFavorite(args.detail.id)
+
         onClickFavorite()
+
         return binding?.root
     }
 
@@ -78,27 +83,46 @@ class HomeDetail : Fragment() {
 
     private fun onClickFavorite() {
         binding?.imageViewFavorites?.setOnClickListener {
-            addFavorites(args.detail)
-            it.background = AppCompatResources.getDrawable(
-                this.requireContext(), if (it.isSelected) {
-                    R.drawable.ic_favorites_selected
-                } else {
-                    R.drawable.ic_favorites
-                }
-            )
-//            saveIdToDb(args.detail.id)
-//            movieSave?.let {
-//                viewModel.insertMovie(it)
-//                Toast.makeText(context,"movie save",Toast.LENGTH_SHORT).show()
-//            }
+            if (favoriteClicked) removeFavorites(args.detail.id) else addFavorites(args.detail)
+            setIcon(!favoriteClicked)
         }
     }
 
-    private fun addFavorites(movie:Movie){
+    private fun setIcon(click: Boolean) {
+        binding?.imageViewFavorites?.background = AppCompatResources.getDrawable(
+            this.requireContext(), if (click) {
+                favoriteClicked = true
+                R.drawable.ic_favorites_selected
+            } else {
+                favoriteClicked = false
+                R.drawable.ic_favorites_detail
+            }
+        )
+    }
+
+
+    private fun addFavorites(movie: Movie) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.saveToAddToFavotire(movie)
         }
+    }
 
+    private fun removeFavorites(id: Int) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.deleteFavorite(id)
+        }
+    }
+
+    private fun isFavorite(id: Int) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val isFavorite = viewModel.isFavorites(id).isNotEmpty()
+            favoriteClicked = if (isFavorite) {
+                setIcon(true)
+                true
+            } else {
+                false
+            }
+        }
     }
 
     override fun onDestroy() {

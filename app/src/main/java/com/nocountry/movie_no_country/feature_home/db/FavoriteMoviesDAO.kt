@@ -11,11 +11,11 @@ interface FavoriteMoviesDAO {
     @Query("SELECT * FROM favorite_movies")
     suspend fun allFavoriteMovies(): List<FavoriteMovieEntity>
 
-//    @Query("SELECT * FROM favorite_movies WHERE title = :title")
-//    suspend fun isThereAMovie(title: String): List<FavoriteMovieEntity>
-//
-//    @Query("DELETE FROM favorite_movies WHERE title  = :movieTitle")
-//    suspend fun removeFavorite(movieTitle: String)
+    @Query("SELECT * FROM favorite_movies WHERE id = :id")
+    suspend fun isThereAMovie(id: Int): List<FavoriteMovieEntity>
+
+    @Query("DELETE FROM favorite_movies WHERE id  = :id")
+    suspend fun removeFavorite(id: Int)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveFavorite(movieDTO: FavoriteMovieEntity)
