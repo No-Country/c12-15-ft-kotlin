@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nocountry.movie_no_country.core.data.model.NetworkResult
 import com.nocountry.movie_no_country.feature_home.data.network.genre.GenreItem
+import com.nocountry.movie_no_country.feature_home.db.FavoriteMoviesDAO
+import com.nocountry.movie_no_country.feature_home.domain.FavoriteMovieEntity
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildBackDropUrlUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildGenresName
@@ -14,10 +16,13 @@ import com.nocountry.movie_no_country.feature_home.domain.usecase.GetMovieGenres
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetPopularMoviesUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetYearUseCase
 import com.nocountry.movie_no_country.feature_home.presentation.model.HomeRecyclerItem
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 class HomeViewModel(
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
@@ -26,7 +31,8 @@ class HomeViewModel(
     private val buildBackDropUrlUseCase: BuildBackDropUrlUseCase,
     private val buildGenresName: BuildGenresName,
     private val getYearUseCase: GetYearUseCase,
-    private val discoverMoviesUseCase: DiscoverMoviesUseCase
+    private val discoverMoviesUseCase: DiscoverMoviesUseCase,
+    private val dao: FavoriteMoviesDAO
 ) : ViewModel() {
 
     private val _data = MutableStateFlow<MutableList<HomeRecyclerItem>>(mutableListOf())
@@ -39,6 +45,7 @@ class HomeViewModel(
     init {
         getGenres()
         getPopularMovies()
+
     }
 
     private fun setData(
@@ -77,6 +84,8 @@ class HomeViewModel(
                                 voteAverage = it.voteAverage,
                                 originalTitle = it.originalTitle,
                                 backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
+                                originalLanguage = it.originalLanguage,
+                                popularity = it.popularity
                             )
                         })
                     }
@@ -106,6 +115,8 @@ class HomeViewModel(
                                     voteAverage = it.voteAverage,
                                     originalTitle = it.originalTitle,
                                     backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
+                                    originalLanguage = it.originalLanguage,
+                                    popularity = it.popularity
                                 )
                             }
                         )
@@ -117,18 +128,38 @@ class HomeViewModel(
 
 
     private fun getGenres() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
 
             when (val genres = movieGenresUseCase()) {
-                is NetworkResult.Error -> Log.i("error mov", genres.message ?: "")
-                is NetworkResult.Exception -> Log.i("exc mov", genres.e.message.toString())
+                is NetworkResult.Error<*> -> Log.i("error mov", genres.message ?: "")
+                is NetworkResult.Exception<*> -> Log.i("exc mov", genres.e.message.toString())
                 is NetworkResult.Success -> {
                     genresCurrent.value = genres.data.genres
                     for (genre in genresCurrent.value) {
-                        discover(genre.id, genre.name)
+                        withContext(Dispatchers.IO) {
+                            runBlocking {
+                                discover(genre.id, genre.name)
+                            }
+                        }
                     }
                 }
             }
         }
     }
+
+    suspend fun saveToAddToFavotire(movie: Movie) {
+        dao.saveFavorite(
+            FavoriteMovieEntity(
+                id = movie.id,
+                title = movie.title
+            )
+        )
+    }
+
+    suspend fun isFavorites(id: Int) = dao.isThereAMovie(id)
+    suspend fun deleteFavorite(id: Int) {
+        dao.removeFavorite(id)
+    }
+
+
 }

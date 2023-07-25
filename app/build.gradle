@@ -5,6 +5,7 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     // Parcelize
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
     id 'com.google.gms.google-services'
 }
 
@@ -38,11 +39,11 @@ android {
         buildConfig true
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 }
 
@@ -87,4 +88,12 @@ dependencies {
 
     //Firestore
     implementation("com.google.firebase:firebase-firestore-ktx")
+
+    //Room
+    implementation 'androidx.room:room-ktx:2.5.2'
+    implementation 'androidx.core:core-ktx:1.10.1'
+    kapt 'androidx.room:room-compiler:2.5.2'
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+
 }

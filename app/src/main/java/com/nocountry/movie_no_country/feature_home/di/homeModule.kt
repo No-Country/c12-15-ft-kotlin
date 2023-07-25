@@ -69,4 +69,5 @@ val homeModule = module {
     factoryOf(::DiscoverMoviesUseCase)
     factoryOf(::BuildGenresName)
     factoryOf(::GetCastUseCase)
+
 }

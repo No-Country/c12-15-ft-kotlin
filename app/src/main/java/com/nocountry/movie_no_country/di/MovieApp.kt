@@ -17,5 +17,14 @@ class MovieApp : Application() {
                 homeModule
             )
         }
+
     }
+    companion object{
+        private var instace : MovieApp? = null
+         fun aplicationContext()= instace!!.applicationContext
+    }
+    init {
+        instace = this
+    }
+
 }

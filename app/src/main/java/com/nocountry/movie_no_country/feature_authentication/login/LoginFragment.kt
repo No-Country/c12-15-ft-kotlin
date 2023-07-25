@@ -139,9 +139,10 @@ class LoginFragment : Fragment() {
         )
 
         db.collection("users")
-            .add(user)
+            .document(email)
+            .set(user)
             .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference}")
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)

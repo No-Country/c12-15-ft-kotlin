@@ -42,9 +42,9 @@
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
         android:layout_marginTop="22dp"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/logoapp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

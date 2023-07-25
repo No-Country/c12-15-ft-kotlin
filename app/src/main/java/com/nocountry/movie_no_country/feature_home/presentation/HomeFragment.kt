@@ -22,7 +22,7 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        (activity as MainActivity).showBottomNav(true)
+
     }
 
     override fun onCreateView(
@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-
+        (activity as MainActivity).showBottomNav(true)
         setCollectors()
 
         return binding?.root
