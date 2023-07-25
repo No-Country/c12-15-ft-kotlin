@@ -6,20 +6,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
 import com.nocountry.movie_no_country.MainActivity
+import com.nocountry.movie_no_country.R
 import com.nocountry.movie_no_country.databinding.FragmentHomeDetailBinding
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeViewModel
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeDetail : Fragment() {
-    private var binding : FragmentHomeDetailBinding? = null
-    private val args : HomeDetailArgs by navArgs()
+    private var binding: FragmentHomeDetailBinding? = null
+    private val args: HomeDetailArgs by navArgs()
     private val db = get<FirebaseFirestore>()
     private val viewModel: HomeViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,14 +35,16 @@ class HomeDetail : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentHomeDetailBinding.inflate(inflater,container,false)
+        binding = FragmentHomeDetailBinding.inflate(inflater, container, false)
         bindDetail(args.detail)
         //movieSave = args.detail
         //onClickFavorite()
         //navigationToHome()
+        onClickFavorite()
         return binding?.root
     }
-    private fun bindDetail(detail: Movie){
+
+    private fun bindDetail(detail: Movie) {
         binding?.apply {
             (activity as MainActivity).setSupportActionBar(toolbar)
             (activity as MainActivity).supportActionBar?.title = detail.title
@@ -54,7 +60,8 @@ class HomeDetail : Fragment() {
             }
         }
     }
-    private fun saveIdToDb(id : Int){
+
+    private fun saveIdToDb(id: Int) {
         val movie = hashMapOf(
             "id" to id,
         )
@@ -69,9 +76,16 @@ class HomeDetail : Fragment() {
             }
     }
 
-    private fun onClickFavorite(){
+    private fun onClickFavorite() {
         binding?.imageViewFavorites?.setOnClickListener {
-//            it.background = AppCompatResources.getDrawable(this.requireContext(),R.drawable.ic_favorites_selected)
+            addFavorites(args.detail)
+            it.background = AppCompatResources.getDrawable(
+                this.requireContext(), if (it.isSelected) {
+                    R.drawable.ic_favorites_selected
+                } else {
+                    R.drawable.ic_favorites
+                }
+            )
 //            saveIdToDb(args.detail.id)
 //            movieSave?.let {
 //                viewModel.insertMovie(it)
@@ -79,6 +93,14 @@ class HomeDetail : Fragment() {
 //            }
         }
     }
+
+    private fun addFavorites(movie:Movie){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.saveToAddToFavotire(movie)
+        }
+
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         binding = null

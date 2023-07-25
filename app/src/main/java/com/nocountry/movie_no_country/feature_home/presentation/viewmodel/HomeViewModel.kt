@@ -8,6 +8,7 @@ import com.nocountry.movie_no_country.core.data.model.NetworkResult
 import com.nocountry.movie_no_country.feature_home.data.network.genre.GenreItem
 import com.nocountry.movie_no_country.feature_home.db.DataBaseFactory
 import com.nocountry.movie_no_country.feature_home.db.FavoriteMoviesDAO
+import com.nocountry.movie_no_country.feature_home.domain.FavoriteMovieEntity
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildBackDropUrlUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildGenresName
@@ -96,7 +97,6 @@ class HomeViewModel(
     }
 
     private suspend fun discover(with_genres: Int, genreName: String) {
-        dao.allFavoriteMovies()
         discoverMoviesUseCase(with_genres = with_genres)
             .collectLatest { result ->
                 when (result) {
@@ -147,6 +147,12 @@ class HomeViewModel(
                 }
             }
         }
+    }
+
+    suspend fun saveToAddToFavotire(movie: Movie) {
+        dao.saveFavorite(FavoriteMovieEntity(
+            id = movie.id
+        ))
     }
 
 //    fun insertMovie(movie: Movie){
