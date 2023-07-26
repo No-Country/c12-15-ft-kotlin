@@ -151,7 +151,8 @@ class HomeViewModel(
         dao.saveFavorite(
             FavoriteMovieEntity(
                 id = movie.id,
-                title = movie.title
+                title = movie.title,
+                posterImageUrl = movie.posterUrl
             )
         )
     }

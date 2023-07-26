@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bottom_login">#FFE16A</color>
     <color name="bottom_text_signup">#EAE9E9</color>
+    <color name="transparent">#0000FFFF</color>
 
 
     <color name="blue">#121721</color>

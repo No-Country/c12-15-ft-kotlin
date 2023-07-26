@@ -11,8 +11,8 @@
     <ImageView
         android:id="@+id/imageViewLogin"
         android:layout_width="0dp"
-        android:layout_height="75dp"
-        android:src="@drawable/logoapp"
+        android:layout_height="85dp"
+        android:src="@drawable/logosplashscreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline5" />

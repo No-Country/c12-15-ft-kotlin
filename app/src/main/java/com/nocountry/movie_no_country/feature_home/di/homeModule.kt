@@ -22,6 +22,7 @@ import com.nocountry.movie_no_country.feature_home.domain.usecase.GetPopularMovi
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetTvGenresUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetYearUseCase
 import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeViewModel
+import com.nocountry.movie_no_country.feature_favorite.viewmodel.FavoritesViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
@@ -59,6 +60,7 @@ val homeModule = module {
     factoryOf(::CastRepositoryImp) { bind<CastRepository>() }
 
     viewModelOf(::HomeViewModel)
+    viewModelOf(::FavoritesViewModel)
 
     factoryOf(::GetPopularMoviesUseCase)
     factoryOf(::BuildPosterUrlUseCase)

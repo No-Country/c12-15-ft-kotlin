@@ -9,7 +9,7 @@ data class FavoriteMovieEntity(
     val id: Int,
 //    val votesAverage: Float,
     val title: String,
-//    val posterImageUrl: String?,
+    val posterImageUrl: String?,
 //    val backdropImageUrl: String?,
 //    val overview: String,
 //    val releaseDate: String,
