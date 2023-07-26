@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nocountry.movie_no_country.core.data.model.NetworkResult
 import com.nocountry.movie_no_country.feature_home.db.FavoriteMoviesDAO
-import com.nocountry.movie_no_country.feature_home.domain.FavoriteMovieEntity
+import com.nocountry.movie_no_country.feature_home.domain.model.FavoriteMovieEntity
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildDurationUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetRuntime

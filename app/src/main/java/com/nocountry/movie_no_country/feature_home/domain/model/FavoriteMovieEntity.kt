@@ -1,4 +1,4 @@
-package com.nocountry.movie_no_country.feature_home.domain
+package com.nocountry.movie_no_country.feature_home.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

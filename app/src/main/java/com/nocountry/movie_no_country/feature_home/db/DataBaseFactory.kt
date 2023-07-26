@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.nocountry.movie_no_country.feature_home.domain.FavoriteMovieEntity
+import com.nocountry.movie_no_country.feature_home.domain.model.FavoriteMovieEntity
 
 @Database(entities = [FavoriteMovieEntity::class], version = 2, exportSchema = false)
 abstract class DataBaseFactory : RoomDatabase() {
