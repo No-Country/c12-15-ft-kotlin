@@ -5,8 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nocountry.movie_no_country.core.data.model.NetworkResult
 import com.nocountry.movie_no_country.feature_home.data.network.genre.GenreItem
-import com.nocountry.movie_no_country.feature_home.db.FavoriteMoviesDAO
-import com.nocountry.movie_no_country.feature_home.domain.FavoriteMovieEntity
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildBackDropUrlUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildGenresName
@@ -14,7 +12,6 @@ import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildPosterUrl
 import com.nocountry.movie_no_country.feature_home.domain.usecase.DiscoverMoviesUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetMovieGenresUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetPopularMoviesUseCase
-import com.nocountry.movie_no_country.feature_home.domain.usecase.GetRuntime
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetYearUseCase
 import com.nocountry.movie_no_country.feature_home.presentation.model.HomeRecyclerItem
 import kotlinx.coroutines.Dispatchers

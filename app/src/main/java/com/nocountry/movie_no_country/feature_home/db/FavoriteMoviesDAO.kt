@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.nocountry.movie_no_country.feature_home.domain.FavoriteMovieEntity
+import com.nocountry.movie_no_country.feature_home.domain.model.FavoriteMovieEntity
 
 @Dao
 interface FavoriteMoviesDAO {
