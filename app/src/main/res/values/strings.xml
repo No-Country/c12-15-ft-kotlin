@@ -28,4 +28,5 @@
     <string name="signout">Desconectarse</string>
     <string name="header_details_cast_section">Reparto</string>
     <string name="header_details_duration_section">Duración</string>
+    <string name="text_favorite_title">Estas son tus elegidos:</string>
 </resources>

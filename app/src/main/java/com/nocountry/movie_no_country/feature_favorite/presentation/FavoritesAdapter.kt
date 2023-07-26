@@ -15,6 +15,7 @@ class FavoritesAdapter(private val list : List<String>):RecyclerView.Adapter<Rec
             Glide.with(itemView.context).load(imageUrl).into(posterImage)
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolderFav(MovieItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
