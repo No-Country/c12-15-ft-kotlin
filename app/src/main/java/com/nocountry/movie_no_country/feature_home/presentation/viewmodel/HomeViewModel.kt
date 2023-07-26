@@ -14,6 +14,7 @@ import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildPosterUrl
 import com.nocountry.movie_no_country.feature_home.domain.usecase.DiscoverMoviesUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetMovieGenresUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetPopularMoviesUseCase
+import com.nocountry.movie_no_country.feature_home.domain.usecase.GetRuntime
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetYearUseCase
 import com.nocountry.movie_no_country.feature_home.presentation.model.HomeRecyclerItem
 import kotlinx.coroutines.Dispatchers
@@ -31,8 +32,7 @@ class HomeViewModel(
     private val buildBackDropUrlUseCase: BuildBackDropUrlUseCase,
     private val buildGenresName: BuildGenresName,
     private val getYearUseCase: GetYearUseCase,
-    private val discoverMoviesUseCase: DiscoverMoviesUseCase,
-    private val dao: FavoriteMoviesDAO
+    private val discoverMoviesUseCase: DiscoverMoviesUseCase
 ) : ViewModel() {
 
     private val _data = MutableStateFlow<MutableList<HomeRecyclerItem>>(mutableListOf())
@@ -146,21 +146,5 @@ class HomeViewModel(
             }
         }
     }
-
-    suspend fun saveToAddToFavotire(movie: Movie) {
-        dao.saveFavorite(
-            FavoriteMovieEntity(
-                id = movie.id,
-                title = movie.title,
-                posterImageUrl = movie.posterUrl
-            )
-        )
-    }
-
-    suspend fun isFavorites(id: Int) = dao.isThereAMovie(id)
-    suspend fun deleteFavorite(id: Int) {
-        dao.removeFavorite(id)
-    }
-
 
 }

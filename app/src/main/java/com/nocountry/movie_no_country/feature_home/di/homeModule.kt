@@ -23,11 +23,19 @@ import com.nocountry.movie_no_country.feature_home.domain.usecase.GetTvGenresUse
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetYearUseCase
 import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeViewModel
 import com.nocountry.movie_no_country.feature_favorite.viewmodel.FavoritesViewModel
+import com.nocountry.movie_no_country.feature_home.data.network.detail.DetailApi
+import com.nocountry.movie_no_country.feature_home.data.network.detail.DetailsService
+import com.nocountry.movie_no_country.feature_home.data.DetailsRepositoryImp
+import com.nocountry.movie_no_country.feature_home.domain.DetailRepository
+import com.nocountry.movie_no_country.feature_home.domain.usecase.GetRuntime
+import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeDetailViewModel
+import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildDurationUseCase
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import retrofit2.create
 
 val homeModule = module {
     factory {
@@ -54,13 +62,22 @@ val homeModule = module {
         )
     }
 
+    factory {
+        DetailsService(
+            get<Retrofit>().create(
+                DetailApi::class.java
+            )
+        )
+    }
     factoryOf(::MovieRepositoryImp) { bind<MovieRepository>() }
 
     factoryOf(::GenreRepositoryImp) { bind<GenreRepository>() }
     factoryOf(::CastRepositoryImp) { bind<CastRepository>() }
+    factoryOf(::DetailsRepositoryImp){bind<DetailRepository>()}
 
     viewModelOf(::HomeViewModel)
     viewModelOf(::FavoritesViewModel)
+    viewModelOf(::HomeDetailViewModel)
 
     factoryOf(::GetPopularMoviesUseCase)
     factoryOf(::BuildPosterUrlUseCase)
@@ -71,5 +88,6 @@ val homeModule = module {
     factoryOf(::DiscoverMoviesUseCase)
     factoryOf(::BuildGenresName)
     factoryOf(::GetCastUseCase)
-
+    factoryOf(::GetRuntime)
+    factoryOf(::BuildDurationUseCase)
 }

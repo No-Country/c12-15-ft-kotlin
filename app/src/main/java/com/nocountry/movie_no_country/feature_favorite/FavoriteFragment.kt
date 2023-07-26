@@ -28,7 +28,6 @@ class FavoriteFragment : Fragment() {
         setAdapter()
         return binding?.root
     }
-
     private fun setAdapter(){
         viewLifecycleOwner.lifecycleScope.launch {
             adapterFav = FavoritesAdapter(viewModel.getFavorites().map {

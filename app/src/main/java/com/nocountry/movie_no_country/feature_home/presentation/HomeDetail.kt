@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -16,6 +17,7 @@ import com.nocountry.movie_no_country.MainActivity
 import com.nocountry.movie_no_country.R
 import com.nocountry.movie_no_country.databinding.FragmentHomeDetailBinding
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
+import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeDetailViewModel
 import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeViewModel
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
@@ -25,7 +27,7 @@ class HomeDetail : Fragment() {
     private var binding: FragmentHomeDetailBinding? = null
     private val args: HomeDetailArgs by navArgs()
     private val db = get<FirebaseFirestore>()
-    private val viewModel: HomeViewModel by viewModel()
+    private val viewModel: HomeDetailViewModel by viewModel()
 
     private var favoriteClicked: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +41,10 @@ class HomeDetail : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentHomeDetailBinding.inflate(inflater, container, false)
         bindDetail(args.detail)
+        viewModel.getRuntimes(args.detail.id.toString())
+        viewModel.runtime.observe(viewLifecycleOwner) {
+            binding?.textViewDurationTime?.text = it
+        }
         //movieSave = args.detail
         //onClickFavorite()
         //navigationToHome()
