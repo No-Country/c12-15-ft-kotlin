@@ -2,6 +2,7 @@ package com.nocountry.movie_no_country.di.modules
 
 import com.nocountry.movie_no_country.core.AuthInterceptor
 import com.nocountry.movie_no_country.core.BASE_URL
+import com.nocountry.movie_no_country.core.COMMENTS
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
@@ -30,8 +31,21 @@ val retrofitModule = module {
     single(named(Qualifier.BASE_URL)) {
         BASE_URL
     }
+    single(named(Qualifier.COMMENTS)) {
+        COMMENTS
+    }
+    single(named(Api.COMMENTS)){
+        Retrofit.Builder()
+            .baseUrl(get<String>(named(Qualifier.COMMENTS)))
+            .client(get())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
 }
-
 enum class Qualifier {
-    BASE_URL
+    BASE_URL,
+    COMMENTS
+}
+enum class Api{
+    COMMENTS
 }

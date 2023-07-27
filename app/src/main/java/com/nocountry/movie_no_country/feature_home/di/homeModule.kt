@@ -1,5 +1,6 @@
 package com.nocountry.movie_no_country.feature_home.di
 
+import com.nocountry.movie_no_country.di.modules.Api
 import com.nocountry.movie_no_country.feature_home.data.CastRepositoryImp
 import com.nocountry.movie_no_country.feature_home.data.GenreRepositoryImp
 import com.nocountry.movie_no_country.feature_home.data.MovieRepositoryImp
@@ -30,9 +31,15 @@ import com.nocountry.movie_no_country.feature_home.domain.DetailRepository
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetRuntime
 import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeDetailViewModel
 import com.nocountry.movie_no_country.feature_home.domain.usecase.BuildDurationUseCase
+import com.nocountry.movie_no_country.feature_home.data.CommentRepositoryImp
+import com.nocountry.movie_no_country.feature_home.data.network.coment.CommentApi
+import com.nocountry.movie_no_country.feature_home.data.network.coment.CommentService
+import com.nocountry.movie_no_country.feature_home.domain.CommentRepository
+import com.nocountry.movie_no_country.feature_home.domain.usecase.GetCommentsUseCase
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.create
@@ -69,11 +76,19 @@ val homeModule = module {
             )
         )
     }
+    factory {
+        CommentService(
+            get<Retrofit>(named(Api.COMMENTS)).create(
+                CommentApi::class.java
+            )
+        )
+    }
     factoryOf(::MovieRepositoryImp) { bind<MovieRepository>() }
 
     factoryOf(::GenreRepositoryImp) { bind<GenreRepository>() }
     factoryOf(::CastRepositoryImp) { bind<CastRepository>() }
     factoryOf(::DetailsRepositoryImp){bind<DetailRepository>()}
+    factoryOf(::CommentRepositoryImp){bind<CommentRepository>()}
 
     viewModelOf(::HomeViewModel)
     viewModelOf(::FavoritesViewModel)
@@ -90,4 +105,5 @@ val homeModule = module {
     factoryOf(::GetCastUseCase)
     factoryOf(::GetRuntime)
     factoryOf(::BuildDurationUseCase)
+    factoryOf(::GetCommentsUseCase)
 }

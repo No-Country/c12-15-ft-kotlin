@@ -8,12 +8,18 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.nocountry.movie_no_country.MainActivity
 import com.nocountry.movie_no_country.R
 import com.nocountry.movie_no_country.databinding.FragmentHomeDetailBinding
+import com.nocountry.movie_no_country.feature_home.domain.model.Coments
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
+import com.nocountry.movie_no_country.feature_home.domain.model.Results
 import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeDetailViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,7 +28,7 @@ class HomeDetail : Fragment() {
     private var binding: FragmentHomeDetailBinding? = null
     private val args: HomeDetailArgs by navArgs()
     private val viewModel: HomeDetailViewModel by viewModel()
-
+    private lateinit var  myadapter : DetailAdapter
     private var favoriteClicked: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +49,8 @@ class HomeDetail : Fragment() {
         //onClickFavorite()
         //navigationToHome()
         isFavorite(args.detail.id)
-
         onClickFavorite()
-
+        setupObserver()
         return binding?.root
     }
 
@@ -112,6 +117,18 @@ class HomeDetail : Fragment() {
     }
     private fun snackBar(message: String){
         binding?.frameLayout9?.let { Snackbar.make(it, message, Snackbar.LENGTH_SHORT).show() }
+    }
+    private fun setupObserver(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.comments.observe(viewLifecycleOwner, Observer {
+                binding?.rvDetail?.apply {
+                    if (it != null) {
+                        myadapter = DetailAdapter(it.results)
+                    }
+                    adapter = myadapter
+                }
+            })
+        }
     }
     override fun onDestroy() {
         super.onDestroy()
