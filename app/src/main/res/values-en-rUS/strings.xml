@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">movie-no-country</string>
+    <string name="app_name">REACH</string>
     <string name="title_menu_home">Home</string>
     <string name="title_menu_search">Search</string>
     <string name="title_menu_favorites">Favorites</string>
@@ -28,4 +28,6 @@
     <string name="header_details_cast_section">Cast</string>
     <string name="header_details_duration_section">Duration</string>
     <string name="text_favorite_title">These are your picks:</string>
+    <string name="text_spanish_setting">Spanish</string>
+    <string name="text_setting_ingles">English</string>
 </resources>
