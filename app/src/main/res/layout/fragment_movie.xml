@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MovieFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".feature_home.presentation.home.movie.MovieFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvHome"
+    <include
+        android:id="@+id/includeMovies"
+        layout="@layout/home_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:clipToPadding="false"
-        android:focusable="true"
-        android:orientation="vertical"
-        android:paddingTop="40dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="match_parent" />
+
+    <include
+        android:id="@+id/includeLoading"
+        layout="@layout/layout_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/viewPager"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        tools:listitem="@layout/header_home_section" />
+        app:layout_constraintStart_toStartOf="parent" />
 </FrameLayout>

@@ -1,4 +1,4 @@
-package com.nocountry.movie_no_country.feature_home.presentation
+package com.nocountry.movie_no_country.feature_home.presentation.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -69,7 +69,6 @@ class HomeFragment : Fragment() {
             vPager.isUserInputEnabled = false
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

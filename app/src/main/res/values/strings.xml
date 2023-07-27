@@ -12,7 +12,6 @@
     <string name="title_menu_favorites">Favorites</string>
     <string name="title_menu_profile">Profile</string>
     <string name="text_onboarding_screen_2">¡Guarda las que más te gusten en favoritos!</string>
-
     <string name="text_button_skip">Omitir</string>
     <string name="text_onboarding_screen_1">Las mejores series y películas en un solo lugar</string>
     <string name="text_button_next">Next</string>
@@ -21,7 +20,6 @@
     <string name="text_name_login">Nombre</string>
     <string name="text_lastname_login">Apellido</string>
     <string name="text_or_login">O registrarme con:</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="title_forgetpass_dialog">Ingrese Email para recuperar su contraseña</string>
     <string name="text_send_dialog">Enviar</string>
     <string name="text_cancel_dialog">Cancelar</string>
@@ -29,8 +27,6 @@
     <string name="header_details_cast_section">Reparto</string>
     <string name="header_details_duration_section">Duración</string>
     <string name="text_favorite_title">Estas son tus elegidos:</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_spanish_setting">Español</string>
     <string name="text_setting_ingles">Ingles</string>
 </resources>
