@@ -1,6 +1,8 @@
 package com.nocountry.movie_no_country.feature_home.presentation.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nocountry.movie_no_country.core.data.model.NetworkResult
@@ -14,13 +16,7 @@ import com.nocountry.movie_no_country.feature_home.domain.usecase.GetMovieGenres
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetPopularMoviesUseCase
 import com.nocountry.movie_no_country.feature_home.domain.usecase.GetYearUseCase
 import com.nocountry.movie_no_country.feature_home.presentation.model.HomeRecyclerItem
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 
 class HomeViewModel(
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
@@ -32,17 +28,16 @@ class HomeViewModel(
     private val discoverMoviesUseCase: DiscoverMoviesUseCase
 ) : ViewModel() {
 
-    private val _data = MutableStateFlow<MutableList<HomeRecyclerItem>>(mutableListOf())
-    var data: StateFlow<MutableList<HomeRecyclerItem>> = _data
+    private val _data = MutableLiveData<List<HomeRecyclerItem>>()
+    val data: LiveData<List<HomeRecyclerItem>> = _data
 
     private val homeData = mutableListOf<HomeRecyclerItem>()
 
-    private val genresCurrent = MutableStateFlow<List<GenreItem>>(emptyList())
+    private val genresList = MutableLiveData<List<GenreItem>>(emptyList())
 
     init {
-        getGenres()
         getPopularMovies()
-
+        getGenres()
     }
 
     private fun setData(
@@ -58,90 +53,74 @@ class HomeViewModel(
                 movies
             )
         )
-        _data.value = homeData
+        _data.postValue(homeData)
     }
 
     private fun getPopularMovies() {
 
         viewModelScope.launch {
-            val res = getPopularMoviesUseCase()
-            res.collectLatest { result ->
-                when (result) {
-                    is NetworkResult.Error -> Log.i("error mov", result.message ?: "")
-                    is NetworkResult.Exception -> Log.i("exc mov", result.e.message.toString())
-                    is NetworkResult.Success -> {
-                        setData(movies = result.data.results.map {
-                            Movie(
-                                id = it.id,
-                                posterUrl = buildPosterUrlUseCase(it.posterPath),
-                                title = it.title,
-                                overview = it.overview,
-                                releaseDate = getYearUseCase(it.releaseDate),
-                                genres = buildGenresName(it.genreIds, genresCurrent.value),
-                                voteAverage = it.voteAverage,
-                                originalTitle = it.originalTitle,
-                                backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
-                                originalLanguage = it.originalLanguage,
-                                popularity = it.popularity
-                            )
-                        })
-                    }
+            when (val result = getPopularMoviesUseCase()) {
+                is NetworkResult.Error<*> -> Log.i("error mov", result.message ?: "")
+                is NetworkResult.Exception<*> -> Log.i("exc mov", result.e.message.toString())
+                is NetworkResult.Success -> {
+                    setData(movies = result.data.results.map {
+                        Movie(
+                            id = it.id,
+                            posterUrl = buildPosterUrlUseCase(it.posterPath),
+                            title = it.title,
+                            overview = it.overview,
+                            releaseDate = getYearUseCase(it.releaseDate),
+                            genres = "buildGenresName(it.genreIds, genresCurrent.value)",
+                            voteAverage = it.voteAverage,
+                            originalTitle = it.originalTitle,
+                            backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
+                            originalLanguage = it.originalLanguage,
+                            popularity = it.popularity
+                        )
+                    })
                 }
             }
         }
     }
+
 
     private suspend fun discover(with_genres: Int, genreName: String) {
-        discoverMoviesUseCase(with_genres = with_genres)
-            .collectLatest { result ->
-                when (result) {
-                    is NetworkResult.Error -> Log.i("error mov", result.message ?: "")
-                    is NetworkResult.Exception -> Log.i("exc mov", result.e.message.toString())
-                    is NetworkResult.Success -> {
-                        setData(
-                            with_genres,
-                            genreName,
-                            result.data.results.map {
-                                Movie(
-                                    id = it.id,
-                                    posterUrl = buildPosterUrlUseCase(it.posterPath),
-                                    title = it.title,
-                                    overview = it.overview,
-                                    releaseDate = getYearUseCase(it.releaseDate),
-                                    genres = buildGenresName(it.genreIds, genresCurrent.value),
-                                    voteAverage = it.voteAverage,
-                                    originalTitle = it.originalTitle,
-                                    backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
-                                    originalLanguage = it.originalLanguage,
-                                    popularity = it.popularity
-                                )
-                            }
-                        )
-                    }
-                }
-
+        when (val result = discoverMoviesUseCase(with_genres = with_genres)) {
+            is NetworkResult.Error -> Log.i("error mov", result.message ?: "")
+            is NetworkResult.Exception -> Log.i("exc mov", result.e.message.toString())
+            is NetworkResult.Success -> {
+                val genres = genresList.value ?: emptyList()
+                setData(with_genres, genreName, result.data.results.map {
+                    Movie(
+                        id = it.id,
+                        posterUrl = buildPosterUrlUseCase(it.posterPath),
+                        title = it.title,
+                        overview = it.overview,
+                        releaseDate = getYearUseCase(it.releaseDate),
+                        genres = buildGenresName(it.genreIds, genres),
+                        voteAverage = it.voteAverage,
+                        originalTitle = it.originalTitle,
+                        backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
+                        originalLanguage = it.originalLanguage,
+                        popularity = it.popularity
+                    )
+                })
             }
+        }
     }
 
-
     private fun getGenres() {
-        viewModelScope.launch(Dispatchers.IO) {
-
+        viewModelScope.launch {
             when (val genres = movieGenresUseCase()) {
-                is NetworkResult.Error<*> -> Log.i("error mov", genres.message ?: "")
-                is NetworkResult.Exception<*> -> Log.i("exc mov", genres.e.message.toString())
+                is NetworkResult.Error -> Log.i("error mov", genres.message ?: "")
+                is NetworkResult.Exception -> Log.i("exc mov", genres.e.message.toString())
                 is NetworkResult.Success -> {
-                    genresCurrent.value = genres.data.genres
-                    for (genre in genresCurrent.value) {
-                        withContext(Dispatchers.IO) {
-                            runBlocking {
-                                discover(genre.id, genre.name)
-                            }
-                        }
+                    for (genre in genres.data.genres) {
+                        discover(genre.id, genre.name)
                     }
                 }
             }
         }
     }
-
 }
+
