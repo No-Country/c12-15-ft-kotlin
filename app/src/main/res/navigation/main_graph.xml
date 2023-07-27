@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_profileFragment_to_fragment_Login"
             app:destination="@id/fragment_Login" />
+        <action
+            android:id="@+id/action_profileFragment_to_languageSettingFragment"
+            app:destination="@id/languageSettingFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -89,5 +92,14 @@
         <!--        <action-->
         <!--            android:id="@+id/action_homeDetail_to_homeFragment"-->
         <!--            app:destination="@id/homeFragment" />-->
+    </fragment>
+    <fragment
+        android:id="@+id/languageSettingFragment"
+        android:name="com.nocountry.movie_no_country.feature_profile.LanguageSettingFragment"
+        android:label="fragment_language_setting"
+        tools:layout="@layout/fragment_language_setting" >
+        <action
+            android:id="@+id/action_languageSettingFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>

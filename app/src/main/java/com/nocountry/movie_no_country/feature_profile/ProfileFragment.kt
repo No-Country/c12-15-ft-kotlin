@@ -24,6 +24,11 @@ class ProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(inflater, container, false)
+        binding?.apply {
+            imageViewLanguage.setOnClickListener {
+                findNavController().navigate(R.id.action_profileFragment_to_languageSettingFragment)
+            }
+        }
         signOut()
         return binding?.root
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">movie-no-country</string>
+    <string name="app_name">REACH</string>
     <string name="title_menu_home">Inicio</string>
     <string name="title_menu_search">Buscar</string>
     <string name="title_menu_favorites">Favoritos</string>
@@ -28,4 +28,6 @@
     <string name="header_details_cast_section">Reparto</string>
     <string name="header_details_duration_section">Duración</string>
     <string name="text_favorite_title">Estas son tus elegidos:</string>
+    <string name="text_spanish_setting">Español</string>
+    <string name="text_setting_ingles">Ingles</string>
 </resources>
