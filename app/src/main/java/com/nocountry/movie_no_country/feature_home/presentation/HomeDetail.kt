@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.nocountry.movie_no_country.MainActivity
 import com.nocountry.movie_no_country.R
@@ -110,12 +111,14 @@ class HomeDetail : Fragment() {
     private fun addFavorites(movie: Movie) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.saveToAddToFavotire(movie)
+            snackBar("¡Agregado a tus favoritos!")
         }
     }
 
     private fun removeFavorites(id: Int) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.deleteFavorite(id)
+            snackBar("¡Eliminado de tus favoritos!")
         }
     }
 
@@ -130,7 +133,9 @@ class HomeDetail : Fragment() {
             }
         }
     }
-
+    private fun snackBar(message: String){
+        binding?.frameLayout9?.let { Snackbar.make(it, message, Snackbar.LENGTH_SHORT).show() }
+    }
     override fun onDestroy() {
         super.onDestroy()
         binding = null
