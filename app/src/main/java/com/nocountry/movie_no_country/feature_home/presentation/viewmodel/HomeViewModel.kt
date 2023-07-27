@@ -60,8 +60,8 @@ class HomeViewModel(
 
         viewModelScope.launch {
             when (val result = getPopularMoviesUseCase()) {
-                is NetworkResult.Error<*> -> Log.i("error mov", result.message ?: "")
-                is NetworkResult.Exception<*> -> Log.i("exc mov", result.e.message.toString())
+                is NetworkResult.Error -> Log.i("error mov", result.message ?: "")
+                is NetworkResult.Exception -> Log.i("exc mov", result.e.message.toString())
                 is NetworkResult.Success -> {
                     setData(movies = result.data.results.map {
                         Movie(
