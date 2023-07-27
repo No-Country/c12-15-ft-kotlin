@@ -70,7 +70,7 @@ class HomeViewModel(
                             title = it.title,
                             overview = it.overview,
                             releaseDate = getYearUseCase(it.releaseDate),
-                            genres = "buildGenresName(it.genreIds, genresCurrent.value)",
+                            genres = buildGenresName(it.genreIds, genresList.value?: emptyList()),
                             voteAverage = it.voteAverage,
                             originalTitle = it.originalTitle,
                             backdropUrl = buildBackDropUrlUseCase(it.backdropPath),
@@ -115,6 +115,7 @@ class HomeViewModel(
                 is NetworkResult.Error -> Log.i("error mov", genres.message ?: "")
                 is NetworkResult.Exception -> Log.i("exc mov", genres.e.message.toString())
                 is NetworkResult.Success -> {
+                    genresList.value = genres.data.genres
                     for (genre in genres.data.genres) {
                         discover(genre.id, genre.name)
                     }

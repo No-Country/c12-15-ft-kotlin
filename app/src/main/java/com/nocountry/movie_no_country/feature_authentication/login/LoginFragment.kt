@@ -2,6 +2,7 @@ package com.nocountry.movie_no_country.feature_authentication.login
 
 import android.app.Activity
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
@@ -12,7 +13,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -23,6 +26,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
+import com.nocountry.movie_no_country.MainActivity
 import com.nocountry.movie_no_country.R
 import com.nocountry.movie_no_country.databinding.FragmentLoginBinding
 import com.nocountry.movie_no_country.feature_authentication.login.domain.User
@@ -46,6 +50,7 @@ class LoginFragment : Fragment() {
         //findNavController().navigate(R.id.action_fragment_Login_to_homeFragment)
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+        (activity as MainActivity).showBottomNav(false)
         textView()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -154,5 +159,18 @@ class LoginFragment : Fragment() {
         binding = null
 
     }
-
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true)
+            {
+                override fun handleOnBackPressed() {
+                    onDestroy()
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            callback
+        )
+    }
 }
