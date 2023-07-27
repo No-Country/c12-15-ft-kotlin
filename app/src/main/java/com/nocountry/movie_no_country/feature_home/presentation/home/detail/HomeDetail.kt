@@ -1,4 +1,4 @@
-package com.nocountry.movie_no_country.feature_home.presentation
+package com.nocountry.movie_no_country.feature_home.presentation.home.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,19 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.nocountry.movie_no_country.MainActivity
 import com.nocountry.movie_no_country.R
 import com.nocountry.movie_no_country.databinding.FragmentHomeDetailBinding
-import com.nocountry.movie_no_country.feature_home.domain.model.Coments
 import com.nocountry.movie_no_country.feature_home.domain.model.Movie
-import com.nocountry.movie_no_country.feature_home.domain.model.Results
-import com.nocountry.movie_no_country.feature_home.presentation.viewmodel.HomeDetailViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

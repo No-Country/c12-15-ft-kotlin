@@ -1,4 +1,4 @@
-package com.nocountry.movie_no_country.feature_home.presentation.viewmodel
+package com.nocountry.movie_no_country.feature_home.presentation.home.detail
 
 import android.util.Log
 import androidx.lifecycle.LiveData

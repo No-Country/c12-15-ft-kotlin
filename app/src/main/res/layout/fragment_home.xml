@@ -5,36 +5,36 @@
     android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature_home.presentation.HomeFragment">
+    tools:context=".feature_home.presentation.home.HomeFragment">
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/materialButtonToggleGroup"
-        android:layout_width="wrap_content"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/boton_segmented"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:tabBackground="@color/blue"
+        app:tabGravity="fill"
+        app:tabIndicatorAnimationMode="elastic"
+        app:tabIndicatorColor="?attr/colorAccent"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorGravity="stretch"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="?attr/color"
+        app:tabTextColor="?attr/colorAccent" />
 
-        <Button
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxWidth="250dp"
-            android:minWidth="150dp"
-            android:text="@string/text_button1_home"
-            android:textSize="16sp" />
-
-        <Button
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxWidth="250dp"
-            android:minWidth="150dp"
-            android:text="@string/text_button2_home"
-            android:textSize="16sp" />
-
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -45,20 +45,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvHome"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:clickable="true"
-        android:clipToPadding="false"
-        android:focusable="true"
-        android:orientation="vertical"
-        android:paddingTop="40dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialButtonToggleGroup"
-        tools:listitem="@layout/header_home_section" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,8 @@
-package com.nocountry.movie_no_country.feature_home.presentation
+package com.nocountry.movie_no_country.feature_home.presentation.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.nocountry.movie_no_country.R
@@ -12,7 +13,7 @@ import com.nocountry.movie_no_country.feature_home.presentation.model.HomeRecycl
 
 class HomeAdapter(
     private val items: List<HomeRecyclerItem>,
-    private val fragment: HomeFragment
+    private val fragment: Fragment
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -68,7 +69,7 @@ class HomeAdapter(
 
         class MovieListViewHolder(
             private val binding: MovieListBinding,
-            private val fragment: HomeFragment
+            private val fragment: Fragment
         ) : HomeViewHolder(binding) {
             fun bindMovies(
                 movies: List<Movie>,
