@@ -3,7 +3,7 @@
     <style name="Base.Theme.Movienocountry" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- StatusBar -->
         <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:statusBarColor">?android:attr/color</item>
+        <item name="android:statusBarColor">@color/transparent</item>
 
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->

@@ -2,7 +2,7 @@
 <resources>
     <style name="Theme.MySplashScreen" parent = "Theme.SplashScreen">
         <item name="windowSplashScreenBackground">#121721</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/logoapp</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logosplashscreen</item>
         <item name="postSplashScreenTheme">@style/Theme.Movienocountry</item>
     </style>
 </resources>
