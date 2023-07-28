@@ -166,8 +166,8 @@ class HomeViewModel(
                 setSerie(with_genres, genreName, result.data.results.map {
                     Movie(
                         id = it.id,
-                        posterUrl = buildPosterUrlUseCase(it.posterPath),
-                        title = it.originaTitle,
+                        posterUrl = buildPosterUrlUseCase(it.backdropPath),
+                        title = it.name,
                         overview = it.overview,
                         releaseDate = it.releaseDate,
                         genres = buildGenresName(it.genreIds, genres),
