@@ -33,46 +33,37 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView6">
 
         <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:elevation="4dp"
             android:textAppearance="@style/TextSeach" />
     </androidx.cardview.widget.CardView>
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
+    <include
+        android:id="@+id/includeListMovie"
+        layout="@layout/search_movie_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <TextView
+        android:id="@+id/textviewGone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/cardView"
-        app:layout_constraintStart_toStartOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/cardView">
+        android:text="Busca tu pelicula favorita"
+        android:textSize="16sp"
+        android:fontFamily="@font/roboto"
+        android:textColor="?attr/colorPrimary"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <Button
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxWidth="250dp"
-            android:minWidth="150dp"
-            android:text="@string/text_button1_home"
-            android:padding="12dp"
-            android:fontFamily="@font/roboto"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/bottom_login"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="?attr/materialButtonOutlinedStyle"
-            android:maxWidth="250dp"
-            android:minWidth="150dp"
-            android:text="@string/text_button2_home"
-            android:padding="12dp"
-            android:fontFamily="@font/roboto"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/bottom_login"
-            android:backgroundTint="#121721"/>
-    </com.google.android.material.button.MaterialButtonToggleGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

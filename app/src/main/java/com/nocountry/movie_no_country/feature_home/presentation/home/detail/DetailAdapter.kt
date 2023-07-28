@@ -18,7 +18,6 @@ class DetailAdapter(private val list: List<Coments>) :
                 textViewNameComment.text = comment.name
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

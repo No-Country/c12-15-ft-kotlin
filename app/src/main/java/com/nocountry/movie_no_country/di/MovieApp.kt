@@ -4,6 +4,7 @@ import android.app.Application
 import com.nocountry.movie_no_country.di.modules.appModule
 import com.nocountry.movie_no_country.di.modules.retrofitModule
 import com.nocountry.movie_no_country.feature_home.di.homeModule
+import com.nocountry.movie_no_country.feature_search.di.searchModule
 import org.koin.core.context.startKoin
 
 class MovieApp : Application() {
@@ -14,7 +15,8 @@ class MovieApp : Application() {
             modules(
                 appModule,
                 retrofitModule,
-                homeModule
+                homeModule,
+                searchModule
             )
         }
 

@@ -69,7 +69,6 @@ class HomeFragment : Fragment() {
             vPager.isUserInputEnabled = false
         }
     }
-
     override fun onDestroy() {
         super.onDestroy()
         binding = null
